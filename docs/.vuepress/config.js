@@ -1,6 +1,7 @@
 
-const codeBlack = require('./config/codeBlack')
-const accumulate = require('./config/accumulate')
+const styleBlock = require('./config/styleBlock')
+const jsBlock = require('./config/jsBlock')
+const vueCode = require('./config/vueCode')
 
 module.exports = {
   base: '/blogs/',
@@ -18,15 +19,17 @@ module.exports = {
       }
     },
     lastUpdated: '最后更新时间', // 最后更新时间
-    sidebarDepth: 3,
+    sidebarDepth: 2,
     nav: [
-      { text: '前端积累', link: '/accumulate/' },
-      { text: '代码块', link: '/codeBlack/' },
+      { text: 'js', link: '/jsBlock/' },
+      { text: 'style', link: '/styleBlock/' },
+      { text: 'vue源码个人理解', link: '/vueCode/' },
       { text: 'GitHub', link: 'https://github.com/zhuanwan/blogs' }
     ],
     sidebar: {
-      '/accumulate/': accumulate,
-      '/codeBlack/': codeBlack
+      '/jsBlock/': jsBlock,
+      '/styleBlock/': styleBlock,
+      '/vueCode': vueCode
     }
   },
   markdown: {
