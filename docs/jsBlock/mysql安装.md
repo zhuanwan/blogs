@@ -58,3 +58,10 @@ mysql -u root -p
 
 :tada: :cherry_blossom: :tada: :cherry_blossom: :tada: :cherry_blossom:
 
+### navicat 连接
+用navicat连接，发现报错 “Authentication plugin 'caching_sha2_password' cannot be loaded”
+进入mysql, 执行
+``` bash
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '123456';
+```
+
