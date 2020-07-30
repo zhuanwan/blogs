@@ -30,3 +30,4 @@ node_modules/
 .DS_Store
 .scannerwork
 version.txt
+node_modules
