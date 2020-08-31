@@ -1,0 +1,27 @@
+@import 'reset.less';
+.box {
+  margin-top: 100px;
+  margin-left: 300px;
+  width: 800px;
+  height: 200px;
+  border: 1px solid blue;
+  position: relative;
+  .item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #ccc;
+    border-radius: 10px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 100px;
+    transform: translateX(0);
+    transition: transform 2s ease, background 0.5s ease; 
+    &.sortting {
+      background-color: #0f0f0f;
+    }
+  }
+}

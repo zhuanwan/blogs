@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="./css/1.css" />
+  </head>
+
+  <body>
+    <div class="box" id="box"></div>
+  </body>
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
+  <script>
+    const box = document.getElementById("box");
+    const nums = [2, 4, 7, 9, 3];
+    const xs = [0, 60, 120, 180, 240];
+
+    const fragment = document.createDocumentFragment();
+    for (let i = 0; i < nums.length; i++) {
+      const num = nums[i];
+      var div = document.createElement("div");
+      div.textContent = num;
+      div.classList = ["item"];
+      div.style = `transform: translateX(${xs[i]}px);`;
+      fragment.appendChild(div);
+    }
+
+    box.appendChild(fragment);
+
+    box.querySelectorAll('.item').forEach(element => {
+      element.addEventListener(
+        "transitionend",
+        function(e) {
+          element.style.backgroundColor="#ccc"
+        },
+        true
+      );
+    });
+
+    // 排序动画
+    function sortAnimation(i1, j1, flag) {
+      const i = i1
+      const j = j1
+      return function() {
+        const divi = box.querySelectorAll(".item")[i]
+        const divj = box.querySelectorAll(".item")[j]
+
+        if (flag) {
+          
+          setTimeout(() => {
+            divi.style.backgroundColor="#f00"
+            divj.style.backgroundColor="#f00"
+            divi.style.transform = `translateX(${xs[j]}px)`;
+            divj.style.transform = `translateX(${xs[i]}px)`;
+          }, 100);
+          box.insertBefore(divj, divi);
+        } else {
+          divi.style.backgroundColor="#0f0"
+          divj.style.backgroundColor="#0f0"
+          setTimeout(() => {
+            divi.style.backgroundColor="#ccc"
+            divj.style.backgroundColor="#ccc"
+          }, 1000);
+        }
+      };
+    }
+
+    // 排序
+    function sort(arr) {
+      const animationFn = [];
+      let flag = true; // 是否还需要继续判断标志
+      for (let i = 1; i < arr.length; i++) {
+        flag = true;
+        for (let j = 0; j < arr.length - 1; j++) {
+          if (arr[j] > arr[j + 1]) {
+            [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
+            animationFn.push(sortAnimation(j, j + 1, true));
+            flag = false;
+          } else {
+            animationFn.push(sortAnimation(j, j + 1, false));
+          }
+        }
+
+        if (flag) {
+          break;
+        }
+      }
+      return { arr, animationFn }
+    }
+
+    const {arr, animationFn} = sort(nums)
+
+    for (let i = 0; i < animationFn.length; i++) {
+      const fn = animationFn[i];
+      setTimeout(() => {
+        fn()
+      }, i*3000);
+    }
+  </script>
+</html>
