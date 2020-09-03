@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body{
+            padding: 20px 0;
+        }
+        #fileSelect{
+            margin-top: 10px;
+            padding: 10px 5px;
+            border: 1px solid chartreuse;
+            border-radius: 5px;
+            background: green;
+            color: white;
+            text-decoration: none;
+        }
+        #fileSelect:hover{
+            opacity: 0.8;
+        }
+
+    </style>
+</head>
+
+<body>
+  转载 https://codepen.io/ChenYCL/pen/xBNXrd
+    <input type="file" id="fileElem" multiple accept="image/*" style="display:none"
+        onchange="handleFiles(event,this.files)">
+    <a href="#" id="fileSelect">点击上传</a>
+</body>
+<script>
+    window.onload = function () {
+        var fileSelect = document.getElementById("fileSelect"),
+            fileElem = document.getElementById("fileElem");
+        fileSelect.addEventListener("click", function (e) {
+            if (fileElem) {
+                fileElem.click();
+            }
+            e.preventDefault();
+        }, false);
+    }
+    function handleFiles(e, files) {
+        console.log(files)
+        for (var i = 0; i < files.length; i++) {
+            var file = files[i];
+            var imageType = /^image\//;
+            if (!imageType.test(file.type)) {
+                continue;
+            }
+            console.log(file);
+
+            const width = 600;
+            const height = 700;
+            const fileName = e.target.files[0].name;
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = event => {
+                const img = new Image();
+                console.log(reader)
+                img.src = reader.result;
+                img.onload = () => {
+                    const elem = document.createElement('canvas');
+                    elem.width = width;
+                    elem.height = height;
+                    const ctx = elem.getContext('2d');
+                    // canvas大小设置
+                    ctx.drawImage(img, 0, 0, width, height);
+                    document.body.append(elem);
+
+                    // 这个或者下面注释的
+                    const url = ctx.canvas.toDataURL('image/jpeg',0.7);
+                    download(file, url)
+                    // ctx.canvas.toBlob((blob) => {
+                    //     const file = new File([blob], fileName, {
+                    //         type: 'image/jpeg',
+                    //         lastModified: Date.now()
+                    //     });
+                    //     console.log(file);
+                    //     readBlobAsDataURL(file, function (dataurl){
+                    //         console.log(dataurl);
+                    //         download(file,dataurl)
+                    //     });
+                    // }, 'image/jpeg', 10e-9);
+
+                },
+                reader.onerror = error => console.log(error);
+            };
+
+        }
+    }
+    function download(img,url) {
+        var a = document.createElement('a');
+        // 用 blob 对象来创建一个 object URL
+        // var url = window.URL.createObjectURL(blob);
+        var filename = '副本'+img['name']
+        a.href = url;
+        a.download = filename;
+        a.click();
+        document.body.append(a)
+        // 使用完object URL 之后手动撤销以释放掉内存优化性能
+        window.URL.revokeObjectURL(url);
+    }
+
+    function readBlobAsDataURL(blob, callback) {
+        var a = new FileReader();
+        a.onload = function(e) {callback(e.target.result);};
+        a.readAsDataURL(blob);
+    }
+
+
+
+</script>
+
+</html>
