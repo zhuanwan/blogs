@@ -23,7 +23,6 @@ Object.keys(docsDirToFileMap).map(k => {
   fs.open(f, 'r', (err, fd) => {
     if (err) {
       console.log('没有这个路径', f)
-      return
     }
 
     fs.writeFile(`./docs/.vuepress/config/${k}.js`,
