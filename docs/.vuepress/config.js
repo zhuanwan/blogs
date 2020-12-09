@@ -1,7 +1,10 @@
 
+const algorithm = require('./config/algorithm')
+const toolInstallation = require('./config/toolInstallation')
 const styleBlock = require('./config/styleBlock')
 const jsBlock = require('./config/jsBlock')
 const vueCode = require('./config/vueCode')
+const other = require('./config/other')
 
 module.exports = {
   base: '/blogs/',
@@ -21,15 +24,21 @@ module.exports = {
     lastUpdated: '最后更新时间', // 最后更新时间
     sidebarDepth: 2,
     nav: [
-      { text: 'js', link: '/jsBlock/' },
-      { text: 'style', link: '/styleBlock/' },
-      { text: 'vue源码个人理解', link: '/vueCode/' },
+      { text: '算法', link: '/algorithm'},
+      { text: 'jsBlock', link: '/jsBlock/' },
+      { text: 'styleBlock', link: '/styleBlock/' },
+      { text: '工具安装', link: '/toolInstallation/' },
+      { text: 'vue相关', link: '/vueCode/' },
+      { text: '其他', link: '/other/' },
       { text: 'GitHub', link: 'https://github.com/zhuanwan/blogs' }
     ],
     sidebar: {
+      '/algorithm': algorithm,
       '/jsBlock/': jsBlock,
       '/styleBlock/': styleBlock,
-      '/vueCode': vueCode
+      '/toolInstallation': toolInstallation,
+      '/vueCode': vueCode,
+      '/other': other,
     }
   },
   markdown: {

@@ -1,4 +1,4 @@
 module.exports = [
-  '/styleBlock/css.md',
-  '/styleBlock/flex.md'
+  "/styleBlock/css.md",
+  "/styleBlock/flex.md"
 ]

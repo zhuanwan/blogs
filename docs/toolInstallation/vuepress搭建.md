@@ -3,10 +3,10 @@
 以前用过hexo，搭了个，[链接](https://zhuanwan.github.io/)，还是不是很喜欢，也感觉有点繁琐，特别是换电脑的时候，配置一大堆。
 偶然看到网上有个博客页很好看，
 是我喜欢的简洁类型的，
-然后看他的链接github上有个vuepress，
-然后搜索这个vuepress,
-然后开始搭了，
-期间各种问题，有点对自己无语
+看他的链接github上有个vuepress，
+搜索这个vuepress,
+开始搭了
+
 
 [vuepress官网](https://vuepress.vuejs.org/zh/guide/)
 
