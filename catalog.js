@@ -27,8 +27,8 @@ Object.keys(docsDirToFileMap).map(k => {
 
     fs.writeFile(`./docs/.vuepress/config/${k}.js`,
       `module.exports = ${JSON.stringify(docsDirToFileMap[k], null, 2)}`,
-      function (err) {
-        if (err) return console.log(err);
+      function (e) {
+        if (e) return console.log(e);
         console.log('重新写', f);
       }
     )
