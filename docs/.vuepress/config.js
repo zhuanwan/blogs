@@ -24,7 +24,7 @@ module.exports = {
     lastUpdated: '最后更新时间', // 最后更新时间
     sidebarDepth: 2,
     nav: [
-      { text: '算法', link: '/algorithm'},
+      { text: '算法', link: '/algorithm/'},
       { text: 'jsBlock', link: '/jsBlock/' },
       { text: 'styleBlock', link: '/styleBlock/' },
       { text: '工具安装', link: '/toolInstallation/' },
