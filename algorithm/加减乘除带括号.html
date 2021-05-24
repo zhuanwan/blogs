@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>加减乘除带括号 | 前端</title>
+    <meta name="generator" content="VuePress 1.4.1">
+    
+    <meta name="description" content="我的前端笔记">
+    <link rel="preload" href="/blogs/assets/css/0.styles.1915ec85.css" as="style"><link rel="preload" href="/blogs/assets/js/app.9a9c207a.js" as="script"><link rel="preload" href="/blogs/assets/js/2.ede39bdd.js" as="script"><link rel="preload" href="/blogs/assets/js/8.bcc66a4b.js" as="script"><link rel="prefetch" href="/blogs/assets/js/10.33f126d8.js"><link rel="prefetch" href="/blogs/assets/js/11.0ef46855.js"><link rel="prefetch" href="/blogs/assets/js/12.e7c1a28e.js"><link rel="prefetch" href="/blogs/assets/js/13.dd8a1587.js"><link rel="prefetch" href="/blogs/assets/js/14.6df5c4cc.js"><link rel="prefetch" href="/blogs/assets/js/15.9de741e7.js"><link rel="prefetch" href="/blogs/assets/js/16.2107e347.js"><link rel="prefetch" href="/blogs/assets/js/17.ca9f0ee7.js"><link rel="prefetch" href="/blogs/assets/js/18.987f5040.js"><link rel="prefetch" href="/blogs/assets/js/19.d77ef757.js"><link rel="prefetch" href="/blogs/assets/js/20.623882ae.js"><link rel="prefetch" href="/blogs/assets/js/21.454a050c.js"><link rel="prefetch" href="/blogs/assets/js/22.eb2ea950.js"><link rel="prefetch" href="/blogs/assets/js/23.e7764f7c.js"><link rel="prefetch" href="/blogs/assets/js/24.252e7639.js"><link rel="prefetch" href="/blogs/assets/js/25.33fe8771.js"><link rel="prefetch" href="/blogs/assets/js/26.a830c970.js"><link rel="prefetch" href="/blogs/assets/js/27.6b019892.js"><link rel="prefetch" href="/blogs/assets/js/28.fa40767d.js"><link rel="prefetch" href="/blogs/assets/js/29.1d35918f.js"><link rel="prefetch" href="/blogs/assets/js/3.1ed40e63.js"><link rel="prefetch" href="/blogs/assets/js/30.7279df6b.js"><link rel="prefetch" href="/blogs/assets/js/31.d376f47e.js"><link rel="prefetch" href="/blogs/assets/js/32.ed2909ce.js"><link rel="prefetch" href="/blogs/assets/js/33.e0b7b3d7.js"><link rel="prefetch" href="/blogs/assets/js/34.359b2aec.js"><link rel="prefetch" href="/blogs/assets/js/35.9430cf2c.js"><link rel="prefetch" href="/blogs/assets/js/36.bace7103.js"><link rel="prefetch" href="/blogs/assets/js/37.bdb6c0ce.js"><link rel="prefetch" href="/blogs/assets/js/38.0aeeab70.js"><link rel="prefetch" href="/blogs/assets/js/39.3d1eefc3.js"><link rel="prefetch" href="/blogs/assets/js/4.ce76527a.js"><link rel="prefetch" href="/blogs/assets/js/40.d6e5ce8f.js"><link rel="prefetch" href="/blogs/assets/js/41.942e6357.js"><link rel="prefetch" href="/blogs/assets/js/42.79d41796.js"><link rel="prefetch" href="/blogs/assets/js/43.fd607b07.js"><link rel="prefetch" href="/blogs/assets/js/44.a198134e.js"><link rel="prefetch" href="/blogs/assets/js/45.4a3e150d.js"><link rel="prefetch" href="/blogs/assets/js/5.8846d71d.js"><link rel="prefetch" href="/blogs/assets/js/6.deec116e.js"><link rel="prefetch" href="/blogs/assets/js/7.31dc7388.js"><link rel="prefetch" href="/blogs/assets/js/9.88ccf9a7.js">
+    <link rel="stylesheet" href="/blogs/assets/css/0.styles.1915ec85.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/blogs/" class="home-link router-link-active"><!----> <span class="site-name">前端</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/blogs/algorithm.html" class="nav-link">
+  算法
+</a></div><div class="nav-item"><a href="/blogs/jsBlock/" class="nav-link">
+  jsBlock
+</a></div><div class="nav-item"><a href="/blogs/styleBlock/" class="nav-link">
+  styleBlock
+</a></div><div class="nav-item"><a href="/blogs/toolInstallation/" class="nav-link">
+  工具安装
+</a></div><div class="nav-item"><a href="/blogs/vueCode/" class="nav-link">
+  vue相关
+</a></div><div class="nav-item"><a href="/blogs/other/" class="nav-link">
+  其他
+</a></div><div class="nav-item"><a href="https://github.com/zhuanwan/blogs" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  GitHub
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/blogs/algorithm.html" class="nav-link">
+  算法
+</a></div><div class="nav-item"><a href="/blogs/jsBlock/" class="nav-link">
+  jsBlock
+</a></div><div class="nav-item"><a href="/blogs/styleBlock/" class="nav-link">
+  styleBlock
+</a></div><div class="nav-item"><a href="/blogs/toolInstallation/" class="nav-link">
+  工具安装
+</a></div><div class="nav-item"><a href="/blogs/vueCode/" class="nav-link">
+  vue相关
+</a></div><div class="nav-item"><a href="/blogs/other/" class="nav-link">
+  其他
+</a></div><div class="nav-item"><a href="https://github.com/zhuanwan/blogs" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  GitHub
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <!----></nav>  <ul class="sidebar-links"><li><a href="/blogs/algorithm/LRU缓存.html" class="sidebar-link">LRU缓存</a></li><li><a href="/blogs/algorithm/加减乘除带括号.html" class="active sidebar-link">加减乘除带括号</a></li><li><a href="/blogs/algorithm/基础排序.html" class="sidebar-link">基础排序</a></li><li><a href="/blogs/algorithm/树.html" class="sidebar-link">树</a></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="加减乘除带括号"><a href="#加减乘除带括号" class="header-anchor">#</a> 加减乘除带括号</h1> <div class="language-bash line-numbers-mode"><pre class="language-bash"><code><span class="token keyword">function</span> caculator<span class="token punctuation">(</span>s<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  s <span class="token operator">=</span> s + <span class="token string">'+'</span>
+
+  <span class="token builtin class-name">let</span> res <span class="token operator">=</span> <span class="token number">0</span> // 结果
+  <span class="token builtin class-name">let</span> subStr <span class="token operator">=</span> <span class="token string">''</span>
+  <span class="token builtin class-name">let</span> pos <span class="token operator">=</span> <span class="token number">1</span> // 上一次的操作符
+  <span class="token builtin class-name">let</span> tempData <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span> // 存储上一次的 subStr 和 操作符
+
+  <span class="token builtin class-name">let</span> zuokuoArr <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span> // 左括号栈
+  <span class="token builtin class-name">let</span> num <span class="token operator">=</span> <span class="token number">0</span> // 配合 左括号栈 匹配到右括号时子串长度
+
+  <span class="token builtin class-name">let</span> i <span class="token operator">=</span> <span class="token number">0</span>
+
+  <span class="token keyword">for</span> <span class="token punctuation">(</span>i<span class="token punctuation">;</span> i <span class="token operator">&lt;</span> s.length<span class="token punctuation">;</span> i++<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    var ch <span class="token operator">=</span> s.charAt<span class="token punctuation">(</span>i<span class="token punctuation">)</span>
+
+    // 如果碰到左括号，左括号栈 入栈
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>ch <span class="token operator">==</span><span class="token operator">=</span> <span class="token string">'('</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      zuokuoArr.push<span class="token punctuation">(</span><span class="token string">'('</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    // 如果碰到右括号，左括号栈 出栈
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>ch <span class="token operator">==</span><span class="token operator">=</span> <span class="token string">')'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      zuokuoArr.pop<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+
+    // 如果左括号栈内还有左括号，继续循环，子串长度 + <span class="token number">1</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>zuokuoArr.length <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      num++
+      <span class="token builtin class-name">continue</span>
+    <span class="token punctuation">}</span>
+
+    // 如果发现左括号栈 长度为0 并且 有子串, 那么递归单独计算子串，把结果赋值给subStr, 子串长度设为0，继续循环
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>zuokuoArr.length <span class="token operator">==</span><span class="token operator">=</span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span> num <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      const t <span class="token operator">=</span> s.substring<span class="token punctuation">(</span>i - num + <span class="token number">1</span>, i<span class="token punctuation">)</span>
+      num <span class="token operator">=</span> <span class="token number">0</span>
+      subStr <span class="token operator">=</span> caculator<span class="token punctuation">(</span>t<span class="token punctuation">)</span>
+      <span class="token builtin class-name">continue</span>
+    <span class="token punctuation">}</span>
+
+    /////////////////// 以上是括号逻辑 ////////////////////
+    ////////////////// 下面是计算逻辑 ////////////////////
+
+    // 如果发现 是数字，继续循环，得到完整数字
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>ch <span class="token operator">&gt;</span><span class="token operator">=</span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span> ch <span class="token operator">&lt;</span><span class="token operator">=</span> <span class="token number">9</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      subStr <span class="token operator">=</span> subStr + ch
+      <span class="token builtin class-name">continue</span>
+    <span class="token punctuation">}</span>
+
+    // 如果碰到 +-*/
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">'+'</span>, <span class="token string">'-'</span>, <span class="token string">'*'</span>, <span class="token string">'/'</span><span class="token punctuation">]</span>.includes<span class="token punctuation">(</span>ch<span class="token punctuation">))</span> <span class="token punctuation">{</span>
+      // 先判断前面的是否存储上一次的subStr, 计算得出当前subStr
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>tempData.length <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        const <span class="token function">op</span> <span class="token operator">=</span> tempData.pop<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        const d <span class="token operator">=</span> tempData.pop<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>op <span class="token operator">==</span><span class="token operator">=</span> <span class="token string">'*'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          subStr <span class="token operator">=</span> d * subStr
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>op <span class="token operator">==</span><span class="token operator">=</span> <span class="token string">'/'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          subStr <span class="token operator">=</span> d / subStr
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+
+      // 如果是 + - ，计算结果，如果是*/，存储subStr和操作符
+      switch <span class="token punctuation">(</span>ch<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">case</span> <span class="token string">'+'</span><span class="token builtin class-name">:</span>
+          res <span class="token operator">+=</span> pos * subStr
+          subStr <span class="token operator">=</span> <span class="token string">''</span>
+          pos <span class="token operator">=</span> <span class="token number">1</span>
+          <span class="token builtin class-name">break</span>
+        <span class="token keyword">case</span> <span class="token string">'-'</span><span class="token builtin class-name">:</span>
+          res <span class="token operator">+=</span> pos * subStr
+          subStr <span class="token operator">=</span> <span class="token string">''</span>
+          pos <span class="token operator">=</span> -1
+          <span class="token builtin class-name">break</span>
+        <span class="token keyword">case</span> <span class="token string">'*'</span><span class="token builtin class-name">:</span>
+          tempData.push<span class="token punctuation">(</span>subStr<span class="token punctuation">)</span>
+          tempData.push<span class="token punctuation">(</span>ch<span class="token punctuation">)</span>
+          subStr <span class="token operator">=</span> <span class="token string">''</span>
+          <span class="token builtin class-name">break</span>
+        <span class="token keyword">case</span> <span class="token string">'/'</span><span class="token builtin class-name">:</span>
+          tempData.push<span class="token punctuation">(</span>subStr<span class="token punctuation">)</span>
+          tempData.push<span class="token punctuation">(</span>ch<span class="token punctuation">)</span>
+          subStr <span class="token operator">=</span> <span class="token string">''</span>
+          <span class="token builtin class-name">break</span>
+        default:
+          <span class="token builtin class-name">break</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token builtin class-name">return</span> res
+<span class="token punctuation">}</span>
+
+console.log<span class="token punctuation">(</span>caculator<span class="token punctuation">(</span><span class="token string">'4-4*(3+2)-(4)+4'</span><span class="token punctuation">))</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br><span class="line-number">42</span><br><span class="line-number">43</span><br><span class="line-number">44</span><br><span class="line-number">45</span><br><span class="line-number">46</span><br><span class="line-number">47</span><br><span class="line-number">48</span><br><span class="line-number">49</span><br><span class="line-number">50</span><br><span class="line-number">51</span><br><span class="line-number">52</span><br><span class="line-number">53</span><br><span class="line-number">54</span><br><span class="line-number">55</span><br><span class="line-number">56</span><br><span class="line-number">57</span><br><span class="line-number">58</span><br><span class="line-number">59</span><br><span class="line-number">60</span><br><span class="line-number">61</span><br><span class="line-number">62</span><br><span class="line-number">63</span><br><span class="line-number">64</span><br><span class="line-number">65</span><br><span class="line-number">66</span><br><span class="line-number">67</span><br><span class="line-number">68</span><br><span class="line-number">69</span><br><span class="line-number">70</span><br><span class="line-number">71</span><br><span class="line-number">72</span><br><span class="line-number">73</span><br><span class="line-number">74</span><br><span class="line-number">75</span><br><span class="line-number">76</span><br><span class="line-number">77</span><br><span class="line-number">78</span><br><span class="line-number">79</span><br><span class="line-number">80</span><br><span class="line-number">81</span><br><span class="line-number">82</span><br><span class="line-number">83</span><br><span class="line-number">84</span><br><span class="line-number">85</span><br><span class="line-number">86</span><br><span class="line-number">87</span><br><span class="line-number">88</span><br><span class="line-number">89</span><br><span class="line-number">90</span><br><span class="line-number">91</span><br><span class="line-number">92</span><br><span class="line-number">93</span><br></div></div></div> <footer class="page-edit"><!----> <div class="last-updated"><span class="prefix">最后更新时间:</span> <span class="time">5/24/2021, 8:35:50 AM</span></div></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/blogs/algorithm/LRU缓存.html" class="prev">
+        LRU缓存
+      </a></span> <span class="next"><a href="/blogs/algorithm/基础排序.html">
+        基础排序
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/blogs/assets/js/app.9a9c207a.js" defer></script><script src="/blogs/assets/js/2.ede39bdd.js" defer></script><script src="/blogs/assets/js/8.bcc66a4b.js" defer></script>
+  </body>
+</html>
