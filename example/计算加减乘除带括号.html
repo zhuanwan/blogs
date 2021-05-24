@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>计算加减乘除带括号</title>
+  </head>
+  <body>
+    <script>
+      function caculator(s) {
+        s = s + '+'
+
+        let res = 0 // 结果
+        let subStr = ''
+        let pos = 1 // 上一次的操作符
+        let tempData = [] // 存储上一次的 subStr 和 操作符
+
+        let zuokuoArr = [] // 左括号栈
+        let num = 0 // 配合 左括号栈 匹配到右括号时子串长度
+
+        let i = 0
+
+        for (i; i < s.length; i++) {
+          var ch = s.charAt(i)
+
+          // 如果碰到左括号，左括号栈 入栈
+          if (ch === '(') {
+            zuokuoArr.push('(')
+          }
+          // 如果碰到右括号，左括号栈 出栈
+          if (ch === ')') {
+            zuokuoArr.pop()
+          }
+
+          // 如果左括号栈内还有左括号，继续循环，子串长度 + 1
+          if (zuokuoArr.length > 0) {
+            num++
+            continue
+          }
+
+          // 如果发现左括号栈 长度为0 并且 有子串, 那么递归单独计算子串，把结果赋值给subStr, 子串长度设为0，继续循环
+          if (zuokuoArr.length === 0 && num > 0) {
+            const t = s.substring(i - num + 1, i)
+            num = 0
+            subStr = caculator(t)
+            continue
+          }
+
+          /////////////////// 以上是括号逻辑 ////////////////////
+          ////////////////// 下面是计算逻辑 ////////////////////
+
+          // 如果发现 是数字，继续循环，得到完整数字
+          if (ch >= 0 && ch <= 9) {
+            subStr = subStr + ch
+            continue
+          }
+
+          // 如果碰到 +-*/
+          if (['+', '-', '*', '/'].includes(ch)) {
+            // 先判断前面的是否存储上一次的subStr, 计算得出当前subStr
+            if (tempData.length > 0) {
+              const op = tempData.pop()
+              const d = tempData.pop()
+              if (op === '*') {
+                subStr = d * subStr
+              } else if (op === '/') {
+                subStr = d / subStr
+              }
+            }
+
+            // 如果是 + - ，计算结果，如果是*/，存储subStr和操作符
+            switch (ch) {
+              case '+':
+                res += pos * subStr
+                subStr = ''
+                pos = 1
+                break
+              case '-':
+                res += pos * subStr
+                subStr = ''
+                pos = -1
+                break
+              case '*':
+                tempData.push(subStr)
+                tempData.push(ch)
+                subStr = ''
+                break
+              case '/':
+                tempData.push(subStr)
+                tempData.push(ch)
+                subStr = ''
+                break
+              default:
+                break
+            }
+          }
+        }
+
+        return res
+      }
+
+      console.log(caculator('4-4*(3+2)-(4)+4'))
+    </script>
+  </body>
+</html>

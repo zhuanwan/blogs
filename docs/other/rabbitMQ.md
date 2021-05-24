@@ -9,7 +9,7 @@
 
 ## send.js
 
-```bash
+``` bash
 var amqp = require('amqplib/callback_api');
 
   amqp.connect('amqp://localhost', function (error0, connection) {
@@ -38,7 +38,7 @@ var amqp = require('amqplib/callback_api');
 
 ## receive.js
 
-```bash
+``` bash
 var amqp = require('amqplib/callback_api');
 
 amqp.connect('amqp://localhost', function (error0, connection) {
