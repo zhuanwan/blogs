@@ -1,15 +1,15 @@
 # rabbitMQ
 
-1. 开启服务： sudo rabbitmq-server
-2. 关闭服务： sudo rabbitmqctl stop
-3. 查看状态： sudo rabbitmqctl status
+1. 开启服务： sudo rabbitmq-server  
+2. 关闭服务： sudo rabbitmqctl stop  
+3. 查看状态： sudo rabbitmqctl status  
 
-开启后在浏览器打开 http://localhost:15672/#/
+开启后在浏览器打开 http://localhost:15672/#/  
 初始用户、密码都是 guest
 
 ## send.js
 
-``` bash
+``` js
 var amqp = require('amqplib/callback_api');
 
   amqp.connect('amqp://localhost', function (error0, connection) {
@@ -38,7 +38,7 @@ var amqp = require('amqplib/callback_api');
 
 ## receive.js
 
-``` bash
+``` js
 var amqp = require('amqplib/callback_api');
 
 amqp.connect('amqp://localhost', function (error0, connection) {

@@ -1,6 +1,7 @@
 # promise
+忘了哪里转的，找到再补  
 
-``` bash
+``` js
   const isFunction = (obj) => typeof obj === 'function'
   const isObject = (obj) => !!(obj && typeof obj === 'object')
   const isThenable = (obj) =>

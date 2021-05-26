@@ -1,7 +1,8 @@
 # requestIdleCallback
 
-[转](http://www.zhangyunling.com/702.html)
-``` bash
+[转](http://www.zhangyunling.com/702.html)  
+
+``` html
 <!DOCTYPE html>
 <html lang="en">
   <head>

@@ -1,5 +1,5 @@
 # flex
-``` bash
+``` html
 <!DOCTYPE html>
 <html lang="en">
   <head>
