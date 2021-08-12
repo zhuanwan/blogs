@@ -45,3 +45,8 @@ bash deploy.sh
 第二种
 配置travis ci，直接用git push，在项目根目录建.travis.yml，travis自动帮你配置
 
+
+### travis ci 突然不工作了
+
+提交git后，travis突然不自动不打包了，在travis里面设置plan，选择free
+
