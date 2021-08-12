@@ -1,4 +1,5 @@
 module.exports = [
+  "/frame/React.md",
   "/frame/React使用中遇到的一些问题.md",
   "/frame/Vue使用中遇到的一些问题.md",
   "/frame/vue.init.md",

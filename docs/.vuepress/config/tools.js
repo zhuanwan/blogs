@@ -5,5 +5,6 @@ module.exports = [
   "/tools/nginx.md",
   "/tools/php安装.md",
   "/tools/rabbitMQ.md",
+  "/tools/typescript.md",
   "/tools/vuepress搭建.md"
 ]
