@@ -11,5 +11,5 @@ features:
 - title: 又失败了
   details: 再爬起来
 - title: 又又失败了
-  details: 趴着吧吧
+  details: 趴着吧
 ---
