@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@2.6.11/dist/vue.js"></script>
+    <script src="https://unpkg.com/element-ui@2.13.0/lib/index.js"></script>
+  </head>
+
+  <body>
+    <div id="app">
+      <div
+        v-for="(item, index) in specList"
+        :key="item.specId"
+        style="margin-bottom: 20px"
+      >
+        <div style="display: flex">
+          <span>{{ item.specName }}：</span>
+          <div style="flex: 1">
+            <el-checkbox-group
+              v-model="item.checkedSpecItemIds"
+              @change="changeSpecItem"
+            >
+              <el-checkbox
+                v-for="childItem in item.specItemList"
+                :key="childItem.itemId"
+                :label="childItem.itemId"
+              >
+                {{ childItem.itemName }}
+              </el-checkbox>
+            </el-checkbox-group>
+          </div>
+        </div>
+      </div>
+
+      <table class="com-table border" cellspacing="0" cellpadding="0">
+        <tr>
+          <template v-for="(item, i) in tableHeaderData">
+            <th :key="i">{{ item.specName }}</th>
+          </template>
+        </tr>
+        <tr v-for="(item, i) in tableData" :key="i">
+          <template v-for="(element, j) in tableHeaderData">
+            <td :key="'td_'+j">{{ item[element['specId']] }}</td>
+          </template>
+        </tr>
+      </table>
+    </div>
+  </body>
+
+  <script>
+    // 商品类目（category）： 衣服
+    // 商品属性（specList）: 尺寸、颜色、性别、品牌...
+    // 商品属性具体值（specItemList），尺寸：s/m/l...、颜色：红、黄、绿...、性别：男、女、中性
+
+    // 后台返回数据 result
+    // 那么当勾选的时候，要计算sku, 也就是 【S、M】+ 【黄、绿】+【男】 =》 [S黄男，S绿男，M黄男，M绿男]
+
+    var app = new Vue({
+      el: '#app',
+      data: {
+        specList: [],
+        tableData: [],
+        tableHeaderData: [],
+      },
+      async mounted() {
+        const { specList } = await this.fetchData()
+        this.specList = specList.map((item) => ({
+          ...item,
+          checkedSpecItemIds: [],
+        }))
+      },
+      methods: {
+        // 请求后台接口
+        fetchData() {
+          const result = {
+            categoryId: '532128367424581632',
+            categoryName: '衣服',
+            specList: [
+              {
+                specId: '532128367424581632',
+                specName: '尺寸',
+                specItemList: [
+                  {
+                    itemId: '532128367403597824',
+                    itemName: 'S',
+                  },
+                  {
+                    itemId: '532128367403597825',
+                    itemName: 'M',
+                  },
+                  {
+                    itemId: '532128367403597826',
+                    itemName: 'L',
+                  },
+                ],
+                // checkedSpecItemIds: [
+                //   '532128367403597824',
+                //   '532128367403597825',
+                // ], // 前端手动设置的值，这个是选中的时候勾选的值，假如勾选了【S、M】
+              },
+              {
+                specId: '632128367424581632',
+                specName: '颜色',
+                specItemList: [
+                  {
+                    itemId: '632128367403597824',
+                    itemName: '红',
+                  },
+                  {
+                    itemId: '632128367403597825',
+                    itemName: '黄',
+                  },
+                  {
+                    itemId: '632128367403597826',
+                    itemName: '绿',
+                  },
+                ],
+                // checkedSpecItemIds: [
+                //   '632128367403597825',
+                //   '632128367403597826',
+                // ], // 前端手动设置的值，这个是选中的时候勾选的值，假如勾选了颜色【黄、绿】
+              },
+              {
+                specId: '732128367424581632',
+                specName: '性别',
+                specItemList: [
+                  {
+                    itemId: '732128367403597824',
+                    itemName: '男',
+                  },
+                  {
+                    itemId: '732128367403597825',
+                    itemName: '女',
+                  },
+                  {
+                    itemId: '732128367403597826',
+                    itemName: '中性',
+                  },
+                ],
+                // checkedSpecItemIds: ['732128367403597824'], // 前端手动设置的值，这个是选中的时候勾选的值，假如勾选了性别【男】
+              },
+              {
+                specId: '832128367424581632',
+                specName: '品牌',
+                specItemList: [
+                  {
+                    itemId: '832128367403597824',
+                    itemName: '品牌名称1',
+                  },
+                  {
+                    itemId: '832128367403597825',
+                    itemName: '品牌名称2',
+                  },
+                ],
+                // checkedSpecItemIds: [], // 这里没有勾选，默认空数组
+              },
+            ],
+          }
+          return result
+        },
+        // 点击勾选项重新生成table
+        changeSpecItem(e) {
+          const checkedSpecItemArr = []
+          const tableHeaderData = []
+          const specList = this.specList
+          for (let i = 0; i < specList.length; i++) {
+            const specItem = specList[i]
+            const checkedSpecItems = []
+            ;(specItem.checkedSpecItemIds || []).forEach((id) => {
+              checkedSpecItems.push({
+                itemId: id,
+                itemName: specItem.specItemList.find((ele) => ele.itemId === id)
+                  .itemName,
+                specId: specItem.specId,
+                specName: specItem.specName,
+              })
+            })
+            if (checkedSpecItems.length) {
+              checkedSpecItemArr.push(checkedSpecItems)
+              tableHeaderData.push({
+                specId: specItem.specId,
+                specName: specItem.specName,
+              })
+            }
+          }
+
+          console.log(checkedSpecItemArr)
+          if (!checkedSpecItemArr.length) {
+            this.tableHeaderData = []
+            this.tableData = []
+            return
+          }
+          this.tableHeaderData = tableHeaderData
+          const tableData = downgrade(checkedSpecItemArr, combine)
+          this.tableData = tableData
+          console.log(this.tableData)
+        },
+      },
+    })
+
+    function combine(arr) {
+      const returnObj = {
+        attrSpecValue: '',
+        itemIds: [],
+        specIds: [],
+      }
+      for (let i = 0; i < arr.length; i++) {
+        const item = arr[i]
+        returnObj.attrSpecValue += item.specName + ':' + item.itemName + ','
+        returnObj.itemIds.push(item.itemId)
+        returnObj.specIds.push(item.specId)
+        returnObj[item.specId] = item.itemName
+        returnObj.key = item.itemId.toString()
+      }
+      returnObj.attrSpecValue = returnObj.attrSpecValue.slice(0, -1)
+      return returnObj
+    }
+    // 二维数组转成一维数组
+    function downgrade(lists, combine) {
+      const results = []
+      const result = []
+      doExchange(lists, 0)
+      function doExchange(arr, index) {
+        for (var i = 0; i < arr[index].length; i++) {
+          result[index] = arr[index][i]
+          if (index !== arr.length - 1) {
+            doExchange(arr, index + 1)
+          } else {
+            results.push(combine(result))
+          }
+        }
+      }
+      return results
+    }
+  </script>
+
+  <style>
+    .com-table {
+      width: 100%;
+      text-align: center;
+      vertical-align: middle;
+      word-break: break-all;
+      border: 1px solid #e4e8eb;
+    }
+    .com-table th {
+      height: 44px;
+      color: #aaa;
+      font-weight: 500;
+      line-height: 44px;
+      background: #f8f9fa;
+      box-shadow: 0 1px 0 0 #e4e8eb;
+    }
+    .com-table tr,
+    td,
+    th {
+      padding: 10px 16px;
+      text-align: center;
+      vertical-align: middle;
+    }
+  </style>
+</html>
