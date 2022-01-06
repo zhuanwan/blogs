@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      #canvas {
+        width: 400px;
+        height: 400px;
+        border: 1px solid red;
+        /* background-color: #ccc; */
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="canvas"></canvas>
+  </body>
+  <script>
+    const canvas = document.getElementById('canvas')
+    const ctx = canvas.getContext('2d')
+
+    const size = 50
+    const count = 14
+    const beginX = 50
+    const beginY = 50
+    let black = false
+
+    const historys = []
+    const torelance = 15
+    const radius = 20
+
+    canvas.width = beginX * 2 + size * count
+    canvas.height = beginY * 2 + size * count
+
+    let ratio = canvas.width / canvas.clientWidth
+
+    // 画棋盘
+    function drawPad() {
+      ctx.beginPath()
+      ctx.strokeRect(beginX, beginY, size * count, size * count)
+      ctx.closePath()
+
+      // 画横线
+      const endX = beginX + size * count
+      for (let i = 1; i < count; i++) {
+        ctx.beginPath()
+        ctx.moveTo(beginX, beginY + i * size)
+        ctx.lineTo(endX, beginY + i * size)
+        ctx.stroke()
+        ctx.closePath()
+      }
+
+      // 画竖线
+      const endY = beginY + size * count
+      for (let i = 1; i < count; i++) {
+        ctx.beginPath()
+        ctx.moveTo(beginX + i * size, beginY)
+        ctx.lineTo(beginX + i * size, endY)
+        ctx.stroke()
+        ctx.closePath()
+      }
+    }
+
+    function locateX(currentX) {
+      if (currentX < beginX) {
+        return -1
+      }
+      const inx = parseInt((currentX - beginX) / size)
+      if (inx > count) {
+        return -1
+      }
+      const diff1 = (inx + 1) * size + beginX - currentX
+      const diff2 = currentX - size * inx - beginX
+      if (diff1 >= diff2) {
+        if (diff2 <= torelance) {
+          return size * inx + beginX
+        }
+      } else {
+        if (diff1 <= torelance) {
+          return (inx + 1) * size + beginX
+        }
+      }
+      return -1
+    }
+
+    function locateY(currentY) {
+      if (currentY < beginY) {
+        return -1
+      }
+      const inx = parseInt((currentY - beginY) / size)
+      if (inx > count) {
+        return -1
+      }
+      const diff1 = (inx + 1) * size + beginY - currentY
+      const diff2 = currentY - size * inx - beginY
+      if (diff1 >= diff2) {
+        if (diff2 <= torelance) {
+          return size * inx + beginY
+        }
+      } else {
+        if (diff1 <= torelance) {
+          return (inx + 1) * size + beginY
+        }
+      }
+      return -1
+    }
+
+    function exists(x, y) {
+      return historys.find((h) => h.x === x && h.y === y)
+    }
+
+    function drawMark(x, y, black) {
+      ctx.beginPath()
+      ctx.arc(x, y, radius, 0, 2 * Math.PI)
+      const g = ctx.createRadialGradient(x, y, 10, x, y, 0)
+      if (black) {
+        g.addColorStop(0, '#0A0A0A')
+        g.addColorStop(1, '#636766')
+        ctx.fillStyle = g
+      } else {
+        g.addColorStop(0, '#D1D1D1')
+        g.addColorStop(1, '#F9F9F9')
+        ctx.fillStyle = g
+      }
+      ctx.fill()
+      ctx.closePath()
+    }
+
+    function restore() {
+      drawPad()
+      for (let i = 0; i < historys.length; i++) {
+        drawMark(historys[i].x, historys[i].y, historys[i].black)
+      }
+    }
+
+    function bindEvent() {
+      canvas.onmousemove = function(e) {
+        const currentX = e.offsetX
+        const currentY = e.offsetY
+        const x = locateX(currentX * ratio)
+        const y = locateY(currentY * ratio)
+
+        if (x == -1 || y == -1 || exists(x, y)) {
+          return
+        }
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height)
+        restore()
+
+        ctx.beginPath()
+        ctx.moveTo(x - 5, y - 5)
+        ctx.lineTo(x + 5, y + 5)
+        ctx.stroke()
+        ctx.closePath()
+        ctx.beginPath()
+        ctx.moveTo(x - 5, y + 5)
+        ctx.lineTo(x + 5, y - 5)
+        ctx.stroke()
+        ctx.closePath()
+      }
+      canvas.onmousedown = function(e) {
+        const currentX = event.offsetX
+        const currentY = event.offsetY
+        const x = locateX(currentX * ratio)
+        const y = locateY(currentY * ratio)
+        if (x == -1 || y == -1) {
+          return
+        } else {
+          if (exists(x, y)) {
+            return
+          }
+
+          black = !black
+          drawMark(x, y, black)
+          historys.push({
+            x: x,
+            y: y,
+            black: black,
+          })
+        }
+      }
+    }
+
+    drawPad()
+    bindEvent()
+  </script>
+</html>
