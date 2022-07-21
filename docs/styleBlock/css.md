@@ -15,3 +15,8 @@ pointer-events: none，会禁用鼠标移上去和点击事件，如果新增编
     // 或者
     <img referrerPolicy="no-referrer" src="xxx.png" />
 ```
+
+scale 缩放不清晰，加下面即可显著提高清晰度
+```css
+transform: translate3d(1%, 1%, 0) scale(0.8)
+```
