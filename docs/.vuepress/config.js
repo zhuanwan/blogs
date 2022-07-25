@@ -4,6 +4,7 @@ const tools = require('./config/tools')
 const styleBlock = require('./config/styleBlock')
 const jsBlock = require('./config/jsBlock')
 const frame = require('./config/frame')
+const webgl = require('./config/webgl')
 
 module.exports = {
   base: '/blogs/',
@@ -28,6 +29,7 @@ module.exports = {
       { text: 'styleBlock', link: '/styleBlock/' },
       { text: '工具其他', link: '/tools/' },
       { text: 'Vue、React相关', link: '/frame/' },
+      { text: 'webgl', link: '/webgl/' },
       { text: 'GitHub', link: 'https://github.com/zhuanwan/blogs' }
     ],
     sidebar: {
@@ -36,6 +38,7 @@ module.exports = {
       '/styleBlock/': styleBlock,
       '/tools': tools,
       '/frame': frame,
+      '/webgl': webgl,
     }
   },
   markdown: {

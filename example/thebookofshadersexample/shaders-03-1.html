@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div style="border: 1px solid blue;">
+    <canvas id="webgl" width="500" height="500"></canvas>
+  </div>
+
+  <script src="./utils.js"></script>
+  <script>
+    var canvas = document.getElementById('webgl');
+    var gl = canvas.getContext('webgl');
+
+    const vertexShaderSource = `
+      attribute vec2 a_Position;
+      void main() {
+        gl_PointSize = 1.0;
+        gl_Position = vec4(a_Position, 1.0, 1.0);
+      }
+    `;
+
+    const fragShaderSource = `
+      #ifdef GL_ES
+      precision mediump float;
+      #endif
+      uniform float u_time;
+      void main()
+      {
+        gl_FragColor = vec4(abs(sin(u_time)),0.0,0.0,1.0);
+      }    
+    `;
+
+
+    //初始化着色器
+    var program = initShader(gl, vertexShaderSource, fragShaderSource);
+    gl.program = program
+
+    const u_time = gl.getUniformLocation(gl.program, 'u_time');
+    const n = initVertexBuffers(gl)
+
+
+    function tick(timeStamp) {
+
+      const t = Math.random()
+      gl.uniform1f(u_time, timeStamp / 1000.0);
+
+      gl.drawArrays(gl.TRIANGLES, 0, 3);
+
+      window.requestAnimationFrame(tick);
+    }
+    window.requestAnimationFrame(tick);
+
+
+    // 画顶点
+    function initVertexBuffers(gl) {
+      const vertices = new Float32Array([
+        -1.0, -1.0,
+        0.0, 1.0,
+        1.0, -1.0,
+      ]);
+
+      if (!initArrayBuffer(gl, 'a_Position', vertices, 2)) return -1;
+      gl.bindBuffer(gl.ARRAY_BUFFER, null);
+      return 3;
+    }
+  </script>
+
+</html>
