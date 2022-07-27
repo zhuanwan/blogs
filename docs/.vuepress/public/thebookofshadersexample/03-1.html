@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>颜色使用函数</title>
+  <title>变化的颜色</title>
 </head>
 
 <body>
@@ -30,13 +30,10 @@
       #ifdef GL_ES
       precision mediump float;
       #endif
-
-      vec4 red() {
-        return vec4(1.0, 0.0, 0.0, 1.0);
-      }
+      uniform float u_time;
       void main()
       {
-        gl_FragColor = red();
+        gl_FragColor = vec4(abs(sin(u_time)),0.0,0.0,1.0); // sin(x)=>(-1,1), abs=>(0,1)
       }    
     `;
 
@@ -45,9 +42,19 @@
     var program = initShader(gl, vertexShaderSource, fragShaderSource);
     gl.program = program
 
+    const u_time = gl.getUniformLocation(gl.program, 'u_time');
     const n = initVertexBuffers(gl)
 
-    gl.drawArrays(gl.TRIANGLE_STRIP, 0, n);
+
+    function tick(timeStamp) {
+
+      gl.uniform1f(u_time, timeStamp / 1000.0);
+
+      gl.drawArrays(gl.TRIANGLE_STRIP, 0, n);
+
+      window.requestAnimationFrame(tick);
+    }
+    window.requestAnimationFrame(tick);
 
 
     // 顶点

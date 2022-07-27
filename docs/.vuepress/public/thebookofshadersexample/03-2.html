@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>颜色</title>
+  <title>颜色坐标</title>
 </head>
 
 <body>
@@ -28,11 +28,13 @@
 
     const fragShaderSource = `
       #ifdef GL_ES
-      precision mediump float; // 使用中精度
+      precision mediump float;
       #endif
+      uniform vec2 u_resolution;
       void main()
       {
-        gl_FragColor = vec4(1.0, 0.0, 1.0, 1.0);  // rgba  1代表255
+        vec2 st = gl_FragCoord.xy/u_resolution;
+	      gl_FragColor = vec4(st.x,st.y,0.0,1.0);
       }    
     `;
 
@@ -41,10 +43,12 @@
     var program = initShader(gl, vertexShaderSource, fragShaderSource);
     gl.program = program
 
+    const u_resolution = gl.getUniformLocation(gl.program, 'u_resolution');
     const n = initVertexBuffers(gl)
 
-    gl.drawArrays(gl.TRIANGLE_STRIP, 0, n);
+    gl.uniform2f(u_resolution, canvas.width, canvas.height);
 
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, n);
 
     // 顶点
     function initVertexBuffers(gl) {

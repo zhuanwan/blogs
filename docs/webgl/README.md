@@ -7,10 +7,15 @@ float 用 1.0，不要用整数，虽然也可以运行
 
 ## thebookofshaders 示例
 原文链接：[thebookofshaders](https://thebookofshaders.com/?lan=ch)  
-thebookofshaders 里面的示例，按章节来，例：shaders-03-1  
-1. [shaders-02-1](https://zhuanwan.github.io/blogs/thebookofshadersexample/shaders-02-1.html)
-2. [shaders-02-2](https://zhuanwan.github.io/blogs/thebookofshadersexample/shaders-02-2.html)
+thebookofshaders 里面的示例，按章节来，例：03-1  
+1. [02-1](https://zhuanwan.github.io/blogs/thebookofshadersexample/02-1.html)
+2. [02-2](https://zhuanwan.github.io/blogs/thebookofshadersexample/02-2.html)
+2. [03-1](https://zhuanwan.github.io/blogs/thebookofshadersexample/03-1.html)
+2. [04-1](https://zhuanwan.github.io/blogs/thebookofshadersexample/04-1.html)
+2. [05-1](https://zhuanwan.github.io/blogs/thebookofshadersexample/05-1.html)
 
+## step函数
+step(edge, x)  if x < edge 返回0，否则返回1
 
 ## webgl 图元类型
  * gl.POINTS(点)
@@ -25,6 +30,7 @@ thebookofshaders 里面的示例，按章节来，例：shaders-03-1
 2. gl.TRIANGLE_STRIP：用来绘制有共享边的三角形。从第二个三角形开始，每次读取一个顶点，并利用前面的末尾两个顶点构成一个三角形，以此类推。
 3. gl.TRIANGLES_FAN：同样用来绘制有共享边的三角形。从第二个三角形开始，每次读取一个顶点，并利用首个顶点和之前最后一个顶点来构成一个三角形，以此类推。
 
+## 纹理坐标、webgl坐标
 ## 向量
 
 ### 向量的点乘
