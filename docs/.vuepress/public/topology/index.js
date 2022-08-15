@@ -529,6 +529,8 @@ function init(canvas, data) {
     }
   })
 
+
+  let isDragging = false
   canvas.on('mouse:wheel', function (opt) {
     const delta = opt.e.deltaY
     let zoom = canvas.getZoom()
@@ -585,6 +587,5 @@ var stats = initStats()
 const idToPathAndRect = {} // 正在动画的路径
 const idToSwitchMap = {} // 所有开关的状态
 let req // 动画requestAnimationFrame
-let isDragging = false
 init(canvas, mockData)
 testFn(canvas)
