@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script type="importmap">
+		{
+			"imports": {
+				"three": "./jsm/three.module.js"
+			}
+		}
+	</script>
+
+</head>
+
+<body style="overflow: hidden;">
+
+</body>
+<script type="module">
+
+  import * as THREE from 'three';
+
+  import { OrbitControls } from './jsm/controls/OrbitControls.js';
+  import Stats from './jsm/libs/stats.module.js';
+  import { TrackballControls } from './jsm/controls/TrackballControls.js';
+  import { GUI } from './jsm/libs/lil-gui.module.min.js';
+
+  import { FontLoader } from './jsm/loaders/FontLoader.js';
+  import { TextGeometry } from './jsm/geometries/TextGeometry.js';
+
+  var stats = initStats()
+  let renderer, camera, scene, controls, fontModel
+  init()
+  
+
+  function init() {
+    renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+
+    camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000);
+    camera.position.set(0, 0, 400);
+
+    scene = new THREE.Scene();
+
+    scene.add(new THREE.AmbientLight(0x404040));
+    var light = new THREE.DirectionalLight(0xffffff);
+    light.position.set(1, 1, 1);
+    scene.add(light);
+
+
+    window.addEventListener('resize', onWindowResize, false)
+
+    initModel()
+    initControls()
+    animate()
+  }
+
+
+  function initModel() {
+    var font;
+    var loader = new FontLoader();
+    loader.load("./fonts/gentilis_bold.typeface.json", function (res) {
+      font = new TextGeometry("hello world", {
+        font: res,
+        size: 100,
+        height: 60
+      });
+
+      font.computeBoundingBox(); // 运行以后设置font的boundingBox属性对象，如果不运行无法获得。
+      //font.computeVertexNormals();
+
+      var map = new THREE.TextureLoader().load("../ya.JPG");
+      var material = new THREE.MeshLambertMaterial({ map: map, side: THREE.DoubleSide });
+
+      fontModel = new THREE.Mesh(font, material);
+
+      //设置位置
+      fontModel.position.x = - (font.boundingBox.max.x - font.boundingBox.min.x) / 2; //计算出整个模型的宽度的一半
+      fontModel.position.y = - 50;
+      fontModel.position.z = - 30;
+
+      scene.add(fontModel);
+    });
+  }
+
+
+  function initStats() {
+    var stats = new Stats()
+    stats.domElement.style.position = 'fixed'
+    stats.domElement.style.left = '0px'
+    stats.domElement.style.top = '0px'
+    document.body.appendChild(stats.domElement)
+    return stats
+  }
+
+
+  function initControls() {
+
+    controls = new OrbitControls(camera, renderer.domElement);
+
+    // 如果使用animate方法时，将此函数删除
+    //controls.addEventListener( 'change', render );
+    // 使动画循环使用时阻尼或自转 意思是否有惯性
+    controls.enableDamping = true;
+    //动态阻尼系数 就是鼠标拖拽旋转灵敏度
+    //controls.dampingFactor = 0.25;
+    //是否可以缩放
+    controls.enableZoom = true;
+    //是否自动旋转
+    controls.autoRotate = false;
+    //设置相机距离原点的最远距离
+    controls.minDistance = 200;
+    //设置相机距离原点的最远距离
+    controls.maxDistance = 600;
+    //是否开启右键拖拽
+    controls.enablePan = true;
+  }
+
+
+
+  //窗口变动触发的函数
+  function onWindowResize() {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  }
+
+  function animate() {
+    //更新控制器
+    controls.update();
+    
+    renderer.render(scene, camera)
+
+    //更新性能插件
+    stats.update();
+    requestAnimationFrame(animate);
+  }
+
+
+</script>
+
+</html>
