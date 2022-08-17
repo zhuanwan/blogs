@@ -34,7 +34,7 @@
   var stats = initStats()
   let renderer, camera, scene, controls, fontModel
   init()
-  
+
 
   function init() {
     renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -46,10 +46,29 @@
 
     scene = new THREE.Scene();
 
-    scene.add(new THREE.AmbientLight(0x404040));
-    var light = new THREE.DirectionalLight(0xffffff);
-    light.position.set(1, 1, 1);
-    scene.add(light);
+    // scene.add(new THREE.AmbientLight(0x404040));
+    // var light = new THREE.DirectionalLight(0xffffff);
+    // light.position.set(1, 1, 1);
+    // scene.add(light);
+
+    //点光源
+    var point = new THREE.PointLight(0xffffff);
+    point.position.set(400, 200, 300); //点光源位置
+    scene.add(point); //点光源添加到场景中
+
+    // //环境光
+    var ambient = new THREE.AmbientLight(0x444444);
+    scene.add(ambient);
+    // LIGHTS
+
+    // const dirLight = new THREE.DirectionalLight(0xffffff, 0.125);
+    // dirLight.position.set(0, 0, 1).normalize();
+    // scene.add(dirLight);
+
+    // const pointLight = new THREE.PointLight(0xffffff, 1.5);
+    // pointLight.position.set(0, 100, 90);
+    // scene.add(pointLight);
+
 
 
     window.addEventListener('resize', onWindowResize, false)
@@ -61,29 +80,44 @@
 
 
   function initModel() {
-    var font;
-    var loader = new FontLoader();
-    loader.load("./fonts/gentilis_bold.typeface.json", function (res) {
-      font = new TextGeometry("hello world", {
+    var fontLoader = new FontLoader();
+    fontLoader.load("./fonts/gentilis_bold.typeface.json", function (res) {
+      var font = new TextGeometry("hello world", {
         font: res,
-        size: 100,
-        height: 60
+        size: 50,
+        height: 60,
       });
 
       font.computeBoundingBox(); // 运行以后设置font的boundingBox属性对象，如果不运行无法获得。
-      //font.computeVertexNormals();
 
-      var map = new THREE.TextureLoader().load("../ya.JPG");
-      var material = new THREE.MeshLambertMaterial({ map: map, side: THREE.DoubleSide });
+      var textureLoader = new THREE.TextureLoader()
+      textureLoader.load("../640.png", function (map) {
 
-      fontModel = new THREE.Mesh(font, material);
+        var material = new THREE.MeshLambertMaterial({ map, side: THREE.DoubleSide });
 
-      //设置位置
-      fontModel.position.x = - (font.boundingBox.max.x - font.boundingBox.min.x) / 2; //计算出整个模型的宽度的一半
-      fontModel.position.y = - 50;
-      fontModel.position.z = - 30;
+        var materials = [
+          new THREE.MeshPhongMaterial({ color: 0xffffff, flatShading: true, }), // front
+          new THREE.MeshPhongMaterial({ color: 0xffffff }) // side
+        ];
 
-      scene.add(fontModel);
+        // font 贴不了图
+        fontModel = new THREE.Mesh(font, materials);
+
+        //设置位置
+        fontModel.position.x = - (font.boundingBox.max.x - font.boundingBox.min.x) / 2; //计算出整个模型的宽度的一半
+        fontModel.position.y = - 50;
+        fontModel.position.z = - 30;
+
+        scene.add(fontModel);
+
+
+        // 这里可以贴图
+        var sphereGeometry = new THREE.SphereGeometry(50, 24, 16);
+        var sphere = new THREE.Mesh(sphereGeometry, material);
+        scene.add(sphere);
+
+
+      })
     });
   }
 
@@ -132,7 +166,7 @@
   function animate() {
     //更新控制器
     controls.update();
-    
+
     renderer.render(scene, camera)
 
     //更新性能插件
