@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script type="importmap">
+		{
+			"imports": {
+				"three": "./jsm/three.module.js"
+			}
+		}
+	</script>
+
+</head>
+
+<body style="overflow: hidden;">
+
+</body>
+<script type="module">
+
+  import * as THREE from 'three';
+
+  import { OrbitControls } from './jsm/controls/OrbitControls.js';
+  import Stats from './jsm/libs/stats.module.js';
+  import { TrackballControls } from './jsm/controls/TrackballControls.js';
+  import { GUI } from './jsm/libs/lil-gui.module.min.js';
+
+  var stats = initStats()
+  let renderer, camera, scene, controls, gui
+  var positionStep = 0, scaleStep = 0; //模型旋转的速度
+  var sphere, cube, cylinder
+
+  init()
+
+
+  function init() {
+    renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+
+    //告诉渲染器需要阴影效果
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap; // 默认的是，没有设置的这个清晰 THREE.PCFShadowMap
+
+    document.body.appendChild(renderer.domElement);
+
+    camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000);
+    camera.position.set(0, 40, 100);
+    camera.lookAt(new THREE.Vector3(0, 0, 0));
+
+    scene = new THREE.Scene();
+
+    scene.add(new THREE.AmbientLight(0x444444));
+
+    var spotLight = new THREE.SpotLight(0xffffff, 1);
+    spotLight.position.set(15, 40, 35);
+    spotLight.angle = Math.PI / 4; // 光线散射角度，最大为Math.PI/2
+    spotLight.penumbra = 0.1; // 聚光锥的半影衰减百分比。在0和1之间的值。默认为0
+    spotLight.decay = 2; // 沿着光照距离的衰减量
+    spotLight.distance = 200;
+
+    spotLight.castShadow = true;
+    spotLight.shadow.mapSize.width = 512;
+    spotLight.shadow.mapSize.height = 512;
+    spotLight.shadow.camera.near = 10;
+    spotLight.shadow.camera.far = 200;
+    spotLight.shadow.focus = 1;
+    scene.add(spotLight);
+
+
+
+
+    window.addEventListener('resize', onWindowResize, false)
+
+    initModel()
+    initControls()
+    initGui()
+    animate()
+  }
+
+  function initModel() {
+    //上面的球
+    var sphereGeometry = new THREE.SphereGeometry(5, 20, 20);
+    var sphereMaterial = new THREE.MeshStandardMaterial({ color: 0x7777ff });
+
+    sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
+    sphere.position.x = -10;
+    sphere.position.y = 5;
+    sphere.position.z = 10;
+
+    //告诉球需要投射阴影
+    sphere.castShadow = true;
+
+    scene.add(sphere);
+
+
+
+
+    //立方体
+    var cubeGeometry = new THREE.BoxGeometry(10, 10, 8);
+    var cubeMaterial = new THREE.MeshLambertMaterial({ color: 0x00ffff });
+
+    cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+    cube.position.x = 15;
+    cube.position.y = 5;
+    cube.position.z = -5;
+
+    //告诉立方体需要投射阴影
+    cube.castShadow = true;
+
+    scene.add(cube);
+
+
+
+    //创建圆柱体
+    var cylinderGeometry = new THREE.CylinderGeometry(5, 5, 10, 40, 20);
+    var cylinderMaterial = new THREE.MeshPhongMaterial({ color: 0xff5f4d });
+    cylinder = new THREE.Mesh(cylinderGeometry, cylinderMaterial);
+    cylinder.position.set(-15, 5, -10);
+    cylinder.castShadow = true;
+
+    scene.add(cylinder);
+
+    //底部平面
+    var planeGeometry = new THREE.PlaneGeometry(100, 100);
+    var planeMaterial = new THREE.MeshStandardMaterial({ color: 0xaaaaaa });
+
+    var plane = new THREE.Mesh(planeGeometry, planeMaterial);
+    plane.rotation.x = - 0.5 * Math.PI;
+    plane.position.y = -0;
+
+    //告诉底部平面需要接收阴影
+    plane.receiveShadow = true;
+
+    scene.add(plane);
+
+
+  }
+
+  function initStats() {
+    var stats = new Stats()
+    stats.domElement.style.position = 'fixed'
+    stats.domElement.style.left = '0px'
+    stats.domElement.style.top = '0px'
+    document.body.appendChild(stats.domElement)
+    return stats
+  }
+
+  function initControls() {
+
+    controls = new OrbitControls(camera, renderer.domElement);
+
+    // 如果使用animate方法时，将此函数删除
+    //controls.addEventListener( 'change', render );
+    // 使动画循环使用时阻尼或自转 意思是否有惯性
+    controls.enableDamping = true;
+    //动态阻尼系数 就是鼠标拖拽旋转灵敏度
+    //controls.dampingFactor = 0.25;
+    //是否可以缩放
+    controls.enableZoom = true;
+    //是否自动旋转
+    controls.autoRotate = false;
+    //设置相机距离原点的最远距离
+    controls.minDistance = 10;
+    //设置相机距离原点的最远距离
+    controls.maxDistance = 600;
+    //是否开启右键拖拽
+    controls.enablePan = true;
+  }
+
+  function onWindowResize() {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  }
+
+
+  function initGui() {
+    //声明一个保存需求修改的相关数据的对象
+    gui = {
+      scaleStep: 0.01,
+      rotationStep: 0.03,
+      positionStep: 0.05
+    };
+    var datGui = new GUI();
+    //将设置属性添加到gui当中，gui.add(对象，属性，最小值，最大值）
+    datGui.add(gui, "scaleStep", 0, 1);
+    datGui.add(gui, "rotationStep", 0, 1);
+    datGui.add(gui, "positionStep", 0, 1);
+  }
+
+  
+  function animate() {
+
+    //处理简单动画
+
+    //处理位置变化的球的移动
+    positionStep += gui.positionStep;
+    sphere.position.x = 10 * Math.cos(positionStep) - 10;
+    sphere.position.y = 5 + Math.abs(Math.sin(positionStep)) * 10;
+
+    //处理立方体的旋转
+    cube.rotation.x += gui.rotationStep;
+    cube.rotation.y += gui.rotationStep;
+    cube.rotation.z += gui.rotationStep;
+
+    //处理圆柱体的缩放
+    scaleStep += gui.scaleStep;
+    cylinder.scale.x = Math.abs(Math.sin(scaleStep));
+    cylinder.scale.y = Math.abs(Math.cos(scaleStep));
+    cylinder.scale.z = Math.abs(Math.sin(scaleStep));
+
+
+    //更新控制器
+    controls.update();
+
+    renderer.render(scene, camera)
+
+    //更新性能插件
+    stats.update();
+    requestAnimationFrame(animate);
+  }
+
+</script>
+
+</html>

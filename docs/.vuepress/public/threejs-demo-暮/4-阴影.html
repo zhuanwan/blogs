@@ -28,29 +28,52 @@
   import { TrackballControls } from './jsm/controls/TrackballControls.js';
   import { GUI } from './jsm/libs/lil-gui.module.min.js';
 
-
   var stats = initStats()
-  let renderer, camera, scene, controls, fontModel
+  let renderer, camera, scene, controls, spotLight, lightHelper, shadowCameraHelper
   init()
 
 
   function init() {
     renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
+
+    //告诉渲染器需要阴影效果
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap; // 默认的是，没有设置的这个清晰 THREE.PCFShadowMap
+
     document.body.appendChild(renderer.domElement);
 
     camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000);
-    camera.position.set(0, 0, 400);
+    camera.position.set(0, 40, 100);
+    camera.lookAt(new THREE.Vector3(0, 0, 0));
 
     scene = new THREE.Scene();
+    // scene.fog = new THREE.FogExp2(0xffffff,0.006);  // 雾化
+    // scene.overrideMaterial = new THREE.MeshStandardMaterial({color:0x00ffff}); // 场景内所有模型都使用同一种材质
 
     scene.add(new THREE.AmbientLight(0x444444));
 
-    const light = new THREE.SpotLight(0xffffff);
-    light.position.set(60, 30, 0);
+    spotLight = new THREE.SpotLight(0xffffff, 1);
+    spotLight.position.set(15, 40, 35);
+    spotLight.angle = Math.PI / 4; // 光线散射角度，最大为Math.PI/2
+    spotLight.penumbra = 0.1; // 聚光锥的半影衰减百分比。在0和1之间的值。默认为0
+    spotLight.decay = 2; // 沿着光照距离的衰减量
+    spotLight.distance = 200;
+
+    spotLight.castShadow = true;
+    spotLight.shadow.mapSize.width = 512;
+    spotLight.shadow.mapSize.height = 512;
+    spotLight.shadow.camera.near = 10;
+    spotLight.shadow.camera.far = 200;
+    spotLight.shadow.focus = 1;
+    scene.add(spotLight);
+
+    lightHelper = new THREE.SpotLightHelper(spotLight);
+    scene.add(lightHelper);
 
 
-    scene.add(light);
+    shadowCameraHelper = new THREE.CameraHelper( spotLight.shadow.camera );
+		scene.add( shadowCameraHelper );
 
 
 
@@ -62,7 +85,44 @@
   }
 
   function initModel() {
+    //上面的球
+    var sphereGeometry = new THREE.SphereGeometry(5, 20, 20);
+    var sphereMaterial = new THREE.MeshStandardMaterial({ color: 0x7777ff });
 
+    var sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
+    sphere.position.y = 5;
+
+    //告诉球需要投射阴影
+    sphere.castShadow = true;
+
+    scene.add(sphere);
+
+    //立方体
+    var cubeGeometry = new THREE.BoxGeometry(10, 10, 8);
+    var cubeMaterial = new THREE.MeshLambertMaterial({ color: 0x00ffff });
+
+    var cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+    cube.position.x = 25;
+    cube.position.y = 5;
+    cube.position.z = -5;
+
+    //告诉立方体需要投射阴影
+    cube.castShadow = true;
+
+    scene.add(cube);
+
+    //底部平面
+    var planeGeometry = new THREE.PlaneGeometry(100, 100);
+    var planeMaterial = new THREE.MeshStandardMaterial({ color: 0xaaaaaa });
+
+    var plane = new THREE.Mesh(planeGeometry, planeMaterial);
+    plane.rotation.x = - 0.5 * Math.PI;
+    plane.position.y = -0;
+
+    //告诉底部平面需要接收阴影
+    plane.receiveShadow = true;
+
+    scene.add(plane);
 
 
   }
@@ -91,7 +151,7 @@
     //是否自动旋转
     controls.autoRotate = false;
     //设置相机距离原点的最远距离
-    controls.minDistance = 200;
+    controls.minDistance = 10;
     //设置相机距离原点的最远距离
     controls.maxDistance = 600;
     //是否开启右键拖拽
@@ -107,6 +167,8 @@
   function animate() {
     //更新控制器
     controls.update();
+    lightHelper.update();
+    shadowCameraHelper.update();
 
     renderer.render(scene, camera)
 

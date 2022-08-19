@@ -119,8 +119,12 @@
 
     //告诉平行光需要开启阴影投射
     directionalLight.castShadow = true;
-
     scene.add(directionalLight);
+
+    const light = new THREE.SpotLight(0xffffff);
+    light.position.set(60, 30, 0);
+    scene.add(light);
+
   }
 
   function initModel() {
@@ -174,6 +178,7 @@
     var planeGeometry = new THREE.PlaneGeometry(100, 100);
     var planeMaterial = new THREE.MeshLambertMaterial({ color: 0xaaaaaa, side: THREE.DoubleSide });
     var plane = new THREE.Mesh(planeGeometry, planeMaterial);
+
     plane.rotation.x = -0.5 * Math.PI;
     plane.position.y = -5.1;
     plane.receiveShadow = true; //可以接收阴影
