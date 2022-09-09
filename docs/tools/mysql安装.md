@@ -65,3 +65,38 @@ mysql -u root -p
 ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '123456';
 ```
 
+### 重置密码
+``` js
+rpm -qa | grep mysql // 查看mysql安装信息
+mysqladmin --version  // 查看版本
+systemctl start mysqld // 启动mysql
+systemctl status mysqld // 查看myqsl状态
+```
+1. 在 /etc/my.cnf 添加skip-grant-tables，作用是登录mysql的时候跳过密码验证
+``` js
+[mysqld]
+
+skip-grant-tables
+```
+2. 重启mysql服务，并进入mysql
+
+``` js
+service mysqld restart
+mysql -u root
+```
+3. 修改用户密码
+``` js
+update mysql.user set authentication_string=password('密码要复杂点') where user='root';
+flush privileges;
+```
+4. 在 /etc/my.cnf 去除 skip-grant-tables
+5. 重新进入mysql，输入mysql -u root -p，enter 输入密码
+``` js
+mysql -u root -p
+```
+
+### 阿里云mysql数据库连接不上
+1. 在装有MySQL的机器上登录MySQL mysql -u root -p密码
+2. 执行use mysql;
+3. 执行update user set host = '%' where user = 'root';
+4. 执行FLUSH PRIVILEGES;

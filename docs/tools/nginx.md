@@ -51,3 +51,25 @@ ngxin
 
 重启nginx：
 nginx -s reload
+
+
+## 查找文件
+查看nginx实际调用的配置文件
+```js
+ps aux|grep nginx
+
+root      2420  0.0  0.0 112712   956 pts/0    S+   09:24   0:00 grep --color=auto nginx
+nobody   19724  0.0  0.0  21068  1844 ?        S    Mar30   0:08 nginx: worker process
+root     23037  0.0  0.0  20712  1564 ?        Ss    2021   0:00 nginx: master process /usr/local/nginx/sbin/nginx
+
+```
+实际路径为 /usr/local/nginx/sbin/nginx  
+
+实际调用的配置文件路径及是否调用有效
+```js
+/usr/local/nginx/sbin/nginx -t
+
+nginx: the configuration file /usr/local/nginx/conf/nginx.conf syntax is ok
+nginx: configuration file /usr/local/nginx/conf/nginx.conf test is successful
+
+ ```
