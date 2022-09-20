@@ -4,7 +4,7 @@ heroImage: /ya.JPG
 heroText: 前端笔记
 tagline: 人生苦短，开心每一天
 actionText: 开始阅读 →
-actionLink: /accumulate/
+actionLink: /algorithm/
 features:
 - title: 失败了
   details: 爬起来
