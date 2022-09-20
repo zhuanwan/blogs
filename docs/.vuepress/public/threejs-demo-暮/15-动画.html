@@ -9,7 +9,7 @@
   <script type="importmap">
 		{
 			"imports": {
-				"three": "./jsm/three.module.js"
+				"three": "../utils/jsm/three.module.js"
 			}
 		}
 	</script>
@@ -23,10 +23,10 @@
 
   import * as THREE from 'three';
 
-  import { OrbitControls } from './jsm/controls/OrbitControls.js';
-  import Stats from './jsm/libs/stats.module.js';
-  import { TrackballControls } from './jsm/controls/TrackballControls.js';
-  import { GUI } from './jsm/libs/lil-gui.module.min.js';
+  import { OrbitControls } from '../utils/jsm/controls/OrbitControls.js';
+  import Stats from '../utils/jsm/libs/stats.module.js';
+  import { TrackballControls } from '../utils/jsm/controls/TrackballControls.js';
+  import { GUI } from '../utils/jsm/libs/lil-gui.module.min.js';
 
   var stats = initStats()
   let renderer, camera, scene, controls, gui
@@ -191,7 +191,7 @@
     datGui.add(gui, "positionStep", 0, 1);
   }
 
-  
+
   function animate() {
 
     //处理简单动画

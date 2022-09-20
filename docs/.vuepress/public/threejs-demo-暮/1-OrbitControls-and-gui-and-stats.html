@@ -9,7 +9,7 @@
   <script type="importmap">
 		{
 			"imports": {
-				"three": "./jsm/three.module.js"
+				"three": "../utils/jsm/three.module.js"
 			}
 		}
 	</script>
@@ -21,9 +21,9 @@
 </body>
 <script type="module">
   import * as THREE from 'three';
-  import { OrbitControls } from './jsm/controls/OrbitControls.js';
-  import Stats from './jsm/libs/stats.module.js';
-  import { GUI } from './jsm/libs/lil-gui.module.min.js';
+  import { OrbitControls } from '../utils/jsm/controls/OrbitControls.js';
+  import Stats from '../utils/jsm/libs/stats.module.js';
+  import { GUI } from '../utils/jsm/libs/lil-gui.module.min.js';
 
 
   var renderer, camera, scene, gui, stats, ambientLight, directionalLight, control;

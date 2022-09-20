@@ -9,7 +9,7 @@
   <script type="importmap">
 		{
 			"imports": {
-				"three": "./jsm/three.module.js"
+				"three": "../utils/jsm/three.module.js"
 			}
 		}
 	</script>
@@ -23,12 +23,12 @@
 
   import * as THREE from 'three';
 
-  import { OrbitControls } from './jsm/controls/OrbitControls.js';
-  import Stats from './jsm/libs/stats.module.js';
-  import { TrackballControls } from './jsm/controls/TrackballControls.js';
-  import { GUI } from './jsm/libs/lil-gui.module.min.js';
-  import { createMultiMaterialObject } from './jsm/utils/SceneUtils.js'
-  import { ConvexGeometry } from './jsm/geometries/ConvexGeometry.js';
+  import { OrbitControls } from '../utils/jsm/controls/OrbitControls.js';
+  import Stats from '../utils/jsm/libs/stats.module.js';
+  import { TrackballControls } from '../utils/jsm/controls/TrackballControls.js';
+  import { GUI } from '../utils/jsm/libs/lil-gui.module.min.js';
+  import { createMultiMaterialObject } from '../utils/jsm/utils/SceneUtils.js'
+  import { ConvexGeometry } from '../utils/jsm/geometries/ConvexGeometry.js';
 
   var stats = initStats()
   let renderer, camera, scene, controls
@@ -137,8 +137,8 @@
       }
     }
 
-    geometry.setAttribute( 'position', new THREE.Float32BufferAttribute( vertices, 3 ) );
-    geometry.setAttribute( 'color', new THREE.Float32BufferAttribute( colors, 3 ) );
+    geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+    geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
 
     //实例化THREE.Points
     var cloud = new THREE.Points(geometry, material);

@@ -1,4 +1,4 @@
-import * as THREE from '../jsm/three.module.js';
+import * as THREE from '../../utils/jsm/three.module.js'
 // 背景颜色
 function createBgColor3() {
   const element = document.createElement('div')
