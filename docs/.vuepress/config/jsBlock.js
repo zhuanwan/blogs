@@ -12,5 +12,6 @@ module.exports = [
   "/jsBlock/控制台.md",
   "/jsBlock/查找文件中的图片并下载.md",
   "/jsBlock/深度广度优先.md",
-  "/jsBlock/累加函数.md"
+  "/jsBlock/累加函数.md",
+  "/jsBlock/触摸事件和键盘事件.md"
 ]

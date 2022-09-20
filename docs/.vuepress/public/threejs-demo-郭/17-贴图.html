@@ -54,10 +54,10 @@
     var textureLoader = new THREE.TextureLoader();
 
     // 加载法线贴图
-    var textureNormal = textureLoader.load('../EarthNormal.png');
+    var textureNormal = textureLoader.load('../images/EarthNormal.png');
 
 
-    textureLoader.load('../Earth.png', function (texture) {
+    textureLoader.load('../images/Earth.png', function (texture) {
 
       var material = new THREE.MeshPhongMaterial({
         map: texture, // 普通颜色纹理贴图

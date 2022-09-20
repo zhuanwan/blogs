@@ -54,10 +54,10 @@
     var textureLoader = new THREE.TextureLoader();
 
     // 加载高光贴图
-    var textureSpecular = textureLoader.load('../EarthNormal.png');
+    var textureSpecular = textureLoader.load('../images/EarthNormal.png');
 
 
-    textureLoader.load('../earth-specular.gif', function (texture) {
+    textureLoader.load('../images/earth-specular.gif', function (texture) {
 
       var material = new THREE.MeshPhongMaterial({
         map: texture, // 普通颜色纹理贴图

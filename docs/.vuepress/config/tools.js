@@ -1,5 +1,6 @@
 module.exports = [
   "/tools/git.md",
+  "/tools/github访问.md",
   "/tools/make.md",
   "/tools/Markdown基本写法.md",
   "/tools/mysql安装.md",
