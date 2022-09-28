@@ -50,7 +50,64 @@ function Counter() {
 }
 ```
 
-1. 始终整体刷新页面
-2. 单向流
-3. jsx 是JavaScript语法糖，本质调用createElement生成DOM
-4. 函数组件、高阶组件
+## ReactDOM.render
+```js
+render(element, container, callback) =
+legacyRenderSubtreeIntoContainer(null, element, container, false, callback) = 
+
+{
+  // 生成root
+  root = 
+  container._reactRootContainer = 
+  legacyCreateRootFromDOMContainer(container, false) = 
+  createLegacyRoot(container, undefined) = 
+  new ReactDOMBlockingRoot(container, 0, undefined) = 
+  {
+    _internalRoot: createRootImpl(container, 0, undefined) = 
+                    createContainer(container, 0, false) =
+                    createFiberRoot(container, 0, false) =
+                    {
+                      root = new FiberRootNode(container, 0, false) = {tag:0, containerInfo: container,...}
+                      root.current = new FiberNode(3, null, null, 0) = {tag:3, mode:0 ..., stateNode: root, updateQueue: {...}}
+                      return root
+                    }
+                    
+    render: function
+    unmount: function
+  }
+  // 生成fibreRoot
+  fiberRoot = root._internalRoot
+
+  // 这里细节没看懂
+  unbatchedUpdates(function () {
+    updateContainer(element, fiberRoot, null, callback);
+  });
+  
+  updateContainer -> scheduleUpdateOnFiber -> performSyncWorkOnRoot -> renderRootSync ->
+  {
+    // workInProgressRoot = fiberRoot
+    // workInProgress = fiberRoot.current = fiberRoot.current.alternate
+    prepareFreshStack -> createWorkInProgress
+
+    // 执行单元
+    workLoopSync -> performUnitOfWork(workInProgress) -> beginWork -> completeUnitOfWork
+  }
+
+}
+```
+
+
+```js
+ReactDOM.createRoot(container).render(element) = 
+
+{
+  _internalRoot: createRootImpl(container, 2, undefined)
+  unmount: function
+  render: function
+}.render(element) = 
+
+updateContainer(element, root, null, null) = 
+
+enqueueUpdate(current$1, update);scheduleUpdateOnFiber(current$1, lane, eventTime);
+```
+
