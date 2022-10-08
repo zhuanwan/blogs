@@ -206,8 +206,10 @@
         transitionStart: function (swiper) {
           // console.log(this.previousIndex, this.activeIndex)
           if (this.previousIndex == 1 && this.activeIndex == 0) {
+            debugger
             activeTab -= 2;
             if (activeTab < 0) {
+              debugger
               activeTab = tabNum - 1;
             }
             playTab()

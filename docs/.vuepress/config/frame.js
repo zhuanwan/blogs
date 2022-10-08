@@ -8,6 +8,7 @@ module.exports = [
   "/frame/vue梳理.md",
   "/frame/watcher&&dep.md",
   "/frame/代码片段.md",
+  "/frame/打包.md",
   "/frame/简单双向绑定.md",
   "/frame/纯函数.md"
 ]
