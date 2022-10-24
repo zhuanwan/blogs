@@ -4,6 +4,7 @@ module.exports = [
   "/jsBlock/promise.md",
   "/jsBlock/requestIdleCallback.md",
   "/jsBlock/undefined.md",
+  "/jsBlock/webworker.md",
   "/jsBlock/代码块.md",
   "/jsBlock/前后端自动刷新.md",
   "/jsBlock/多个标签页通讯.md",
