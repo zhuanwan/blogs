@@ -12,9 +12,9 @@
 </head>
 
 <body style="background-color: #000628;margin:0;position:relative;">
- 
+
   <canvas id="canvas" width="500" height="500" style="border: 1px solid blue"></canvas>
-  
+
   <img id="ammeter" src="./images/ammeter.png" style="display:none" />
   <img id="piles" src="./images/piles.png" style="display:none" />
   <img id="pv" src="./images/pv.png" style="display:none" />
@@ -28,5 +28,16 @@
 
 
 <script src="./index.js" type="module"></script>
+<script type="text/javascript">
+  // 判断当前的window对象是否是top对象
+  if (window != top) {
+    // top.location.href = window.location.href; // 如果不是，将top对象的网址自动导向被嵌入网页的网址
+    console.log('top.location', top.location)
+    console.log('window.location', window.location)
+  }
+
+
+
+</script>
 
 </html>
