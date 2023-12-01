@@ -19,7 +19,8 @@ function getItem(filename, filedir, prefix = '') {
         children: getItem(fname, fdir, `/${filename}`)
       })
     } else {
-      if (fname !== 'README.md') {
+      const ext = fname.substring(fname.lastIndexOf('.') + 1)
+      if (fname !== 'README.md' && ext === 'md') {
         res.push({
           title: fname.substring(0, fname.lastIndexOf('.')),
           path: `${prefix}/${filename}/${fname}`

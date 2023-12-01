@@ -33,15 +33,7 @@ module.exports = [
   },
   {
     "title": "nginx",
-    "path": "/tools/nginx.conf"
-  },
-  {
-    "title": "nginx",
     "path": "/tools/nginx.md"
-  },
-  {
-    "title": "nginx2",
-    "path": "/tools/nginx2.conf"
   },
   {
     "title": "node安装",
