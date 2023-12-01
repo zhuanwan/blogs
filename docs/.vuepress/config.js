@@ -1,4 +1,5 @@
 
+const fabric = require('./config/fabric')
 const algorithm = require('./config/algorithm')
 const tools = require('./config/tools')
 const styleBlock = require('./config/styleBlock')
@@ -22,8 +23,9 @@ module.exports = {
       }
     },
     lastUpdated: '最后更新时间', // 最后更新时间
-    sidebarDepth: 2,
+    sidebarDepth: 0,
     nav: [
+      { text: 'fabric', link: '/fabric/'},
       { text: '算法', link: '/algorithm/'},
       { text: 'jsBlock', link: '/jsBlock/' },
       { text: 'styleBlock', link: '/styleBlock/' },
@@ -33,6 +35,7 @@ module.exports = {
       { text: 'GitHub', link: 'https://github.com/zhuanwan/blogs' }
     ],
     sidebar: {
+      '/fabric': fabric,
       '/algorithm': algorithm,
       '/jsBlock/': jsBlock,
       '/styleBlock/': styleBlock,

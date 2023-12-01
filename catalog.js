@@ -1,21 +1,46 @@
-var path = require("path")
-var fs = require("fs")
+var path = require('path')
+var fs = require('fs')
 const filePath = path.join(__dirname, 'docs')
-
 
 const docsDirToFileMap = {}
 
+
+// 根据目录返回[{titile,path, children}]
+function getItem(filename, filedir, prefix = '') {
+  const filesOrDir = fs.readdirSync(filedir)
+  const res = []
+  filesOrDir.forEach((fname) => {
+    let fdir = path.join(filedir, fname)
+    let stats = fs.statSync(fdir)
+    let isDir = stats.isDirectory() //是文件夹
+    if (isDir) {
+      res.push({
+        title: fname,
+        children: getItem(fname, fdir, `/${filename}`)
+      })
+    } else {
+      if (fname !== 'README.md') {
+        res.push({
+          title: fname.substring(0, fname.lastIndexOf('.')),
+          path: `${prefix}/${filename}/${fname}`
+        })
+      }
+    }
+  })
+  return res
+}
+
 // 得到 /docs 下的目录
-const docsFiles = fs.readdirSync(filePath)  // 读取文件名
-docsFiles.forEach(filename => {
-  let filedir = path.join(filePath, filename);
+const docsFiles = fs.readdirSync(filePath) // 读取文件名
+docsFiles.forEach((filename) => {
+  let filedir = path.join(filePath, filename)
   let stats = fs.statSync(filedir)
-  let isDir = stats.isDirectory(); //是文件夹
+  let isDir = stats.isDirectory() //是文件夹
   if (isDir && filename !== '.vuepress') {
-    const files = fs.readdirSync(filedir).filter(f => /^((?!README).)*\.md$/.test(f)).map(f => `/${filename}/${f}`)
-    docsDirToFileMap[filename] = files
+    docsDirToFileMap[filename] = getItem(filename, filedir, '')
   }
-});
+})
+
 
 // 写文件
 Object.keys(docsDirToFileMap).map(k => {
@@ -34,4 +59,3 @@ Object.keys(docsDirToFileMap).map(k => {
     )
   });
 })
-
