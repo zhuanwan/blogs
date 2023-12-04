@@ -44,7 +44,40 @@ module.exports = [
   },
   {
     "title": "基础图形",
-    "children": []
+    "children": [
+      {
+        "title": "三角形",
+        "path": "/fabric/基础图形/三角形.md"
+      },
+      {
+        "title": "圆形",
+        "path": "/fabric/基础图形/圆形.md"
+      },
+      {
+        "title": "多边形",
+        "path": "/fabric/基础图形/多边形.md"
+      },
+      {
+        "title": "折线",
+        "path": "/fabric/基础图形/折线.md"
+      },
+      {
+        "title": "椭圆",
+        "path": "/fabric/基础图形/椭圆.md"
+      },
+      {
+        "title": "直线",
+        "path": "/fabric/基础图形/直线.md"
+      },
+      {
+        "title": "矩形",
+        "path": "/fabric/基础图形/矩形.md"
+      },
+      {
+        "title": "路径",
+        "path": "/fabric/基础图形/路径.md"
+      }
+    ]
   },
   {
     "title": "序列化和反序列化",
