@@ -1,7 +1,3 @@
----
-sidebar_position: 1
----
-
 # fabric类的继承体系
 
 ```js

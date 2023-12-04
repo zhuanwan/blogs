@@ -1,7 +1,3 @@
----
-sidebar_position: 3
----
-
 # fabric.Circle
 
 fabric 是个对象， 它上面挂载了很多方法
