@@ -16,7 +16,7 @@ fabric 是个对象， 它上面挂载了很多方法
 
 `fabric.Circle`, 调用 `fabric.util.createClass`，继承 fabric.Object，返回 function
 
-```js title="部分源代码"
+```js
 fabric.Circle = fabric.util.createClass(fabric.Object, {
     ...
 })
@@ -26,7 +26,7 @@ fabric.Circle = fabric.util.createClass(fabric.Object, {
 
 `new fabric.Circle(options)` 生成实例，执行 `initialize`
 
-```js title="源代码"
+```js
 initialize: function(options) {
     if (options) {
         this.setOptions(options);

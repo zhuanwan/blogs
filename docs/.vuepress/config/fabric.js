@@ -106,7 +106,28 @@ module.exports = [
   },
   {
     "title": "文本",
-    "children": []
+    "children": [
+      {
+        "title": "可编辑文本",
+        "path": "/fabric/文本/可编辑文本.md"
+      },
+      {
+        "title": "多行文本",
+        "path": "/fabric/文本/多行文本.md"
+      },
+      {
+        "title": "文本",
+        "path": "/fabric/文本/文本.md"
+      },
+      {
+        "title": "文本省略",
+        "path": "/fabric/文本/文本省略.md"
+      },
+      {
+        "title": "文本边框",
+        "path": "/fabric/文本/文本边框.md"
+      }
+    ]
   },
   {
     "title": "源码",
@@ -135,6 +156,23 @@ module.exports = [
       {
         "title": "画布框选样式",
         "path": "/fabric/画布操作/画布框选样式.md"
+      }
+    ]
+  },
+  {
+    "title": "示例",
+    "children": [
+      {
+        "title": "fabric-echarts-demo",
+        "path": "/fabric/示例/fabric-echarts-demo.md"
+      },
+      {
+        "title": "拓扑图一",
+        "path": "/fabric/示例/拓扑图一.md"
+      },
+      {
+        "title": "拓扑图二",
+        "path": "/fabric/示例/拓扑图二.md"
       }
     ]
   }

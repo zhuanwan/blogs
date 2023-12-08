@@ -17,7 +17,7 @@ fabric是个对象， 它上面挂载了很多方法
 
 `fabric.StaticCanvas`, 调用 `fabric.util.createClass`，返回function，该function的原型上会添加`fabric.CommonMethods.xx`, `fabric.Collection.xx` 等等
 
-```js title="部分源代码"
+```js
 fabric.StaticCanvas = fabric.util.createClass(fabric.CommonMethods, fabric.Collection, {
     initialize: function ...,
     backgroundColor: '',
@@ -46,7 +46,7 @@ fabric.util.createClass = function() {
 }
 ```
 
-```js  title="执行后"
+```js
 fabric.StaticCanvas = function() {
     // 生成实例会执行
     this.initialize.apply(this, arguments);
@@ -60,7 +60,7 @@ fabric.StaticCanvas.prototype._objects = []
 ### 生成实例
 `new fabric.StaticCanvas(canvasEl, options)` 生成实例，执行 `initialize`
 
-```js title="源代码"
+```js
 initialize: function(el, options) {
     options || (options = { });
     this.renderAndResetBound = this.renderAndReset.bind(this);
@@ -71,7 +71,7 @@ initialize: function(el, options) {
 
 `this.renderAndReset` 重置canvas
 
-```js title="源代码"
+```js
 renderCanvas: function(ctx, objects) {
     var v = this.viewportTransform, path = this.clipPath;
     this.cancelRequestedRender(); // 消除动画
@@ -90,7 +90,7 @@ renderCanvas: function(ctx, objects) {
 
 `new fabric.Canvas(canvasEl, options)` 生成实例，执行 `initialize`, 和 StaticCanvas一样，initialize方法多了
 
-```js title="源代码"
+```js
 initialize: function(el, options) {
     options || (options = { });
     this.renderAndResetBound = this.renderAndReset.bind(this);
@@ -106,7 +106,7 @@ initialize: function(el, options) {
 - 初始化监听事件
 - 笔刷
 
-```js title="伪代码"
+```js
     this.wrapperEl = <div class="canvas-container'>
         <canvas class="upper-canvas"></canvas>
         <canvas class="lower-canvas"></canvas>
