@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: #010629;
+    }
+
+    .stat-bar {
+      width: 98%;
+      margin: 20px auto;
+      height: 64px;
+      background-image: -webkit-gradient(linear, left bottom, left top, from(rgba(11, 79, 253, 0.2)), color-stop(70%, rgba(12, 80, 252, 0)), to(rgba(12, 80, 252, 0)));
+      background-image: -o-linear-gradient(bottom, rgba(11, 79, 253, 0.2) 0%, rgba(12, 80, 252, 0) 70%, rgba(12, 80, 252, 0) 100%);
+      background-image: linear-gradient(0deg, rgba(11, 79, 253, 0.2) 0%, rgba(12, 80, 252, 0) 70%, rgba(12, 80, 252, 0) 100%);
+      overflow: hidden;
+    }
+
+    .stat-bar .stat-bar-inner {
+      width: 1700px;
+      margin: 8px auto 0 auto;
+      height: 48px;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: justify;
+      -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+      justify-content: space-between;
+    }
+
+    .stat-bar .stat-item {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: center;
+      -webkit-align-items: center;
+      -ms-flex-align: center;
+      align-items: center;
+    }
+
+    .stat-bar .stat-item .tit {
+      font-size: 20px;
+      color: #52ccff;
+      font-family: 'Source Han Sans CN';
+    }
+
+    .stat-bar .stat-item .scroll-box {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      margin-left: 10px;
+    }
+
+    .stat-bar .stat-item .scroll-num {
+      width: 39px;
+      height: 50px;
+      line-height: 50px;
+      text-align: center;
+      font-size: 41px;
+      color: #01fff6;
+      border-radius: 3px;
+      background-image: linear-gradient(0deg, #07256a 0%, rgba(7, 37, 105, 0) 100%);
+      border: 1px solid #07256a;
+      overflow: hidden;
+      margin-right: 4px;
+    }
+
+    .stat-bar .stat-item .suffix {
+      font-size: 16px;
+      color: #758094;
+      font-family: 'Source Han Sans CN';
+    }
+  </style>
+</head>
+
+<body>
+  <div class="stat-bar">
+    <div class="stat-bar-inner">
+      <div class="stat-item">
+        <div class="tit">累计用电量</div>
+        <div class="scroll-box"></div>
+        <div class="suffix">万kWh</div>
+      </div>
+      <div class="stat-item">
+        <div class="tit">累计发电量</div>
+        <div class="scroll-box"></div>
+        <div class="suffix">万kWh</div>
+      </div>
+      <div class="stat-item">
+        <div class="tit">累计碳排放量</div>
+        <div class="scroll-box"></div>
+        <div class="suffix">万t</div>
+      </div>
+      <div class="stat-item">
+        <div class="tit">累计减碳量</div>
+        <div class="scroll-box"></div>
+        <div class="suffix">万t</div>
+      </div>
+    </div>
+    <svg width="0" height="0">
+      <filter id="blur">
+        <feGaussianBlur in="SourceGraphic" :stdDeviation="0 12" />
+      </filter>
+    </svg>
+  </div>
+</body>
+
+<script src="../utils/tween.umd.js"></script>
+<script>
+
+  // 创建多组数字
+  function createMultiSrollNum(numArr) {
+    const scrollBox = document.getElementsByClassName('scroll-box')
+    for (let i = 0; i < scrollBox.length; i++) {
+      const scrollNode = scrollBox[i]
+      const childNumArr = numArr[i].split('')
+      const docFrag = document.createDocumentFragment()
+      childNumArr.forEach((num, i) => {
+        docFrag.appendChild(createSrollNum(num))
+      })
+      scrollNode.appendChild(docFrag)
+    }
+  }
+
+  // 创建单个数字
+  function createSrollNum(num) {
+    const scrollNumNode = document.createElement('div')
+    scrollNumNode.className = 'scroll-num'
+    scrollNumNode.innerHTML = `<ul class="scroll-ul">
+  <li>0</li>
+  <li>1</li>
+  <li>2</li>
+  <li>3</li>
+  <li>4</li>
+  <li>5</li>
+  <li>6</li>
+  <li>7</li>
+  <li>8</li>
+  <li>9</li>
+  <li>0</li>
+  <li>1</li>
+  <li>2</li>
+  <li>3</li>
+  <li>4</li>
+  <li>5</li>
+  <li>6</li>
+  <li>7</li>
+  <li>8</li>
+  <li>9</li>
+  </ul>`
+
+    const ulNode = scrollNumNode.childNodes[0]
+    ulNode.setAttribute('style', 'transform: translateY(' + num * -5 + '%)')
+    return scrollNumNode
+  }
+
+  // 创建多组数字动画
+  function addMultiDigitAnimate(beforeNumArr, afterNumArr) {
+    TWEEN.removeAll()
+    console.log(beforeNumArr, afterNumArr)
+    const arr = []
+    const scrollBox = document.getElementsByClassName('scroll-box')
+    for (let i = 0; i < scrollBox.length; i++) {
+      const scrollNode = scrollBox[i]
+      const beforeNum = beforeNumArr[i]
+      const afterNum = afterNumArr[i]
+      const isUp = afterNum - beforeNum >= 0
+
+      const beforeChildNumArr = beforeNum.split('')
+      const afterChildNumArr = afterNum.split('')
+
+      let delay = 0
+      const scrollNum = scrollNode.childNodes
+      for (let j = beforeChildNumArr.length - 1; j >= 0; j--) {
+        const num = beforeChildNumArr[j]
+        const num2 = afterChildNumArr[j]
+        const beforePercent = isUp ? num * -5 : -50 - num * 5
+        let afterPercent
+        let duration = 0
+
+        const ulNode = scrollNum[j].childNodes[0]
+        ulNode.setAttribute(
+          'style',
+          'transform: translateY(' + beforePercent + '%)'
+        )
+        if (isUp) {
+          if (num2 > num) {
+            afterPercent = num2 * -5
+            duration = num2 - num
+          } else {
+            afterPercent = num2 * -5 - 50
+            duration = 10 - (num - num2)
+          }
+        } else {
+          if (num2 < num) {
+            afterPercent = beforePercent + (num - num2) * 5
+            duration = num - num2
+          } else {
+            afterPercent = num2 * -5
+            duration = 10 - (num2 - num)
+          }
+        }
+
+        duration = duration * 500
+
+        arr.push({
+          beforePercent,
+          afterPercent,
+          duration,
+          delay,
+          ulNode: scrollNum[j].childNodes[0],
+        })
+        delay = delay + duration * 0.4
+      }
+    }
+
+    arr.forEach((sObject) => {
+      const { beforePercent, afterPercent, duration, delay, ulNode } = sObject
+      new TWEEN.Tween({ y: beforePercent })
+        .to({ y: afterPercent }, duration)
+        // .delay(delay)
+        .easing(TWEEN.Easing.Quintic.Out)
+        .onUpdate((object) => {
+          ulNode.setAttribute('style', 'transform: translateY(' + object.y + '%)')
+        })
+        .start()
+    })
+
+    animate()
+  }
+
+  function createRandom() {
+    const arr = []
+    for (let i = 0; i < 4; i++) {
+      let str = ''
+      for (let j = 0; j < 5; j++) {
+        const num = Math.floor(Math.random() * 10) + ''
+        str += num
+      }
+      arr.push(str)
+    }
+    return arr
+  }
+
+  function animate(time) {
+    let id = requestAnimationFrame(animate)
+    var result = TWEEN.update(time)
+    if (!result) cancelAnimationFrame(id)
+  }
+
+  window.onload = () => {
+
+    // 数据统计数字滚动
+    let beforeNumArr = ['00000', '00000', '00000', '00000']
+    let afterNumArr = ['35345', '83460', '36765', '36465']
+
+    // 初始化
+    createMultiSrollNum(beforeNumArr)
+
+    // 添加动画
+    addMultiDigitAnimate(beforeNumArr, afterNumArr)
+
+    // 测试，点击第一列数字
+    document.getElementsByClassName('scroll-box')[0].onclick = function () {
+      const numArr = createRandom()
+      beforeNumArr = afterNumArr
+      afterNumArr = numArr
+      addMultiDigitAnimate(beforeNumArr, afterNumArr)
+    }
+  }
+
+</script>
+
+</html>
