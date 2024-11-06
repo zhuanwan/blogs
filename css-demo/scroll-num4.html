@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: #010629;
+    }
+
+    .stat-bar {
+      width: 98%;
+      margin: 20px auto;
+      height: 64px;
+      background-image: -webkit-gradient(linear, left bottom, left top, from(rgba(11, 79, 253, 0.2)), color-stop(70%, rgba(12, 80, 252, 0)), to(rgba(12, 80, 252, 0)));
+      background-image: -o-linear-gradient(bottom, rgba(11, 79, 253, 0.2) 0%, rgba(12, 80, 252, 0) 70%, rgba(12, 80, 252, 0) 100%);
+      background-image: linear-gradient(0deg, rgba(11, 79, 253, 0.2) 0%, rgba(12, 80, 252, 0) 70%, rgba(12, 80, 252, 0) 100%);
+      overflow: hidden;
+    }
+
+    .stat-bar .stat-bar-inner {
+      width: 1700px;
+      margin: 8px auto 0 auto;
+      height: 48px;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: justify;
+      -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+      justify-content: space-between;
+    }
+
+    .stat-bar .stat-item {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: center;
+      -webkit-align-items: center;
+      -ms-flex-align: center;
+      align-items: center;
+    }
+
+    .stat-bar .stat-item .tit {
+      font-size: 20px;
+      color: #52ccff;
+      font-family: 'Source Han Sans CN';
+    }
+
+    .stat-bar .stat-item .scroll-box {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      margin-left: 10px;
+    }
+
+    .stat-bar .stat-item .scroll-num {
+      width: 39px;
+      height: 50px;
+      line-height: 50px;
+      text-align: center;
+      font-size: 41px;
+      color: #01fff6;
+      border-radius: 3px;
+      background-image: linear-gradient(0deg, #07256a 0%, rgba(7, 37, 105, 0) 100%);
+      border: 1px solid #07256a;
+      overflow: hidden;
+      margin-right: 4px;
+    }
+
+    .stat-bar .stat-item .suffix {
+      font-size: 16px;
+      color: #758094;
+      font-family: 'Source Han Sans CN';
+    }
+  </style>
+</head>
+
+<body>
+  <div class="stat-bar">
+    <div class="stat-bar-inner">
+      <div class="stat-item">
+        <div class="tit">累计用电量</div>
+        <div class="scroll-box"></div>
+        <div class="suffix">万kWh</div>
+      </div>
+      <div class="stat-item">
+        <div class="tit">累计发电量</div>
+        <div class="scroll-box"></div>
+        <div class="suffix">万kWh</div>
+      </div>
+      <div class="stat-item">
+        <div class="tit">累计碳排放量</div>
+        <div class="scroll-box"></div>
+        <div class="suffix">万t</div>
+      </div>
+      <div class="stat-item">
+        <div class="tit">累计减碳量</div>
+        <div class="scroll-box"></div>
+        <div class="suffix">万t</div>
+      </div>
+    </div>
+    <svg width="0" height="0">
+      <filter id="blur">
+        <feGaussianBlur in="SourceGraphic" :stdDeviation="0 12" />
+      </filter>
+    </svg>
+  </div>
+</body>
+
+<script src="../utils/tween.umd.js"></script>
+<script>
+
+  // 创建多组数字
+  function createMultiSrollNum(numArr) {
+    const scrollBox = document.getElementsByClassName('scroll-box')
+    for (let i = 0; i < scrollBox.length; i++) {
+      const scrollNode = scrollBox[i]
+      const childNumArr = numArr[i].split('')
+      const docFrag = document.createDocumentFragment()
+      childNumArr.forEach((num, i) => {
+        docFrag.appendChild(createSrollNum(num))
+      })
+      scrollNode.appendChild(docFrag)
+    }
+  }
+
+  // 创建单个数字
+  function createSrollNum(num) {
+    const scrollNumNode = document.createElement('div')
+    scrollNumNode.className = 'scroll-num'
+    scrollNumNode.innerHTML = '<ul><li>' + num + '</li></ul>'
+    return scrollNumNode
+  }
+
+  function getIntervalNumArr(start, end, reduce) {
+    const arr = []
+    if (reduce) {
+      for (let i = end; i > start; i--) {
+        arr.push(i)
+      }
+    } else {
+      for (let i = start; i < end; i++) {
+        arr.push(i)
+      }
+    }
+    return arr
+  }
+
+  function repeatArr(a, m) {
+    let j = []
+    for (let i = 0; i < m; i++) {
+      j = j.concat(a)
+    }
+    return j
+  }
+
+  // 创建多组数字动画
+  function addMultiDigitAnimate(beforeNumArr, afterNumArr) {
+    TWEEN.removeAll()
+    const scrollBox = document.getElementsByClassName('scroll-box')
+    console.log(beforeNumArr, afterNumArr)
+    const arr = []
+    for (let i = 0; i < scrollBox.length; i++) {
+      const scrollNode = scrollBox[i]
+      const beforeNum = beforeNumArr[i]
+      const afterNum = afterNumArr[i]
+      const isUp = Number(afterNum) - Number(beforeNum) >= 0
+
+      const beforeChildNumArr = beforeNum.split('')
+      const afterChildNumArr = afterNum.split('')
+
+      const scrollNum = scrollNode.childNodes
+      let delay = 0
+      const staticDuration = 6000
+      let zeroBeforeIndex = 0 // 是否以0开头 标志位
+      let zeroAfterIndex = 0 // 是否以0开头 标志位
+      let someNumberIndex = 0 // 前面有几位数字相同
+      let stopSomeNumber = false // 停止计算前面有几位数字相同
+      for (let j = 0; j < beforeChildNumArr.length; j++) {
+        const num = +beforeChildNumArr[j]
+        const num2 = +afterChildNumArr[j]
+
+        // 算beforeNum前面的0
+        let zeroBeforeFlag = false
+        if (num === 0 && zeroBeforeIndex === j) {
+          zeroBeforeFlag = true
+          zeroBeforeIndex++
+        }
+
+        // 算afterNum前面的0
+        let zeroAfterFlag = false
+        if (num2 === 0 && zeroAfterIndex === j) {
+          zeroAfterFlag = true
+          zeroAfterIndex++
+        }
+
+        // 前面有几位数字相同
+        if (num === num2 && !stopSomeNumber) {
+          someNumberIndex++
+        } else {
+          stopSomeNumber = true
+        }
+
+        let numberArr
+        let repeatNum
+
+        if (isUp) {
+          if (num2 > num) {
+            numberArr = getIntervalNumArr(num, num2)
+            repeatNum = getIntervalNumArr(num2, 10).concat(
+              getIntervalNumArr(0, num2)
+            )
+          } else {
+            numberArr = getIntervalNumArr(num2, num, true)
+            repeatNum = getIntervalNumArr(0, num2, true)
+              .concat([0])
+              .concat(getIntervalNumArr(num2, 9, true))
+          }
+          numberArr = numberArr.concat(repeatArr(repeatNum, j - someNumberIndex))
+          numberArr.push(num2)
+        } else {
+          if (num2 < num) {
+            numberArr = getIntervalNumArr(num2, num, true)
+            repeatNum = getIntervalNumArr(0, num2, true)
+              .concat([0])
+              .concat(getIntervalNumArr(num2, 9, true))
+          } else {
+            numberArr = getIntervalNumArr(num, num2)
+            repeatNum = getIntervalNumArr(num2, 10).concat(
+              getIntervalNumArr(0, num2)
+            )
+          }
+          numberArr = numberArr.concat(repeatArr(repeatNum, j - someNumberIndex))
+          numberArr.push(num2)
+          numberArr.reverse()
+        }
+
+        const ulNode = scrollNum[j].childNodes[0]
+        ulNode.innerHTML = numberArr.map((ele) => '<li>' + ele + '</li>').join('')
+
+        const last = (1 / numberArr.length - 1) * 100
+        const start = isUp ? 0 : last
+        const lastDelay = delay + staticDuration * 0.03
+        const opacityBefore = zeroBeforeFlag ? 0 : 1
+        arr.push({
+          start,
+          end: isUp ? last : 0,
+          delay,
+          opacityBefore,
+          opacityAfter: zeroAfterFlag ? 0 : 1,
+          duration: staticDuration - lastDelay,
+          ulNode,
+        })
+        delay = lastDelay
+        ulNode.setAttribute(
+          'style',
+          'transform: translateY(' + start + '%);opacity:' + opacityBefore
+        )
+      }
+    }
+
+    arr.forEach((sObject) => {
+      const { start, end, ulNode, delay, duration, opacityBefore, opacityAfter } =
+        sObject
+      new TWEEN.Tween({ y: start, opacity: opacityBefore })
+        .to({ y: end, opacity: opacityAfter }, duration)
+        .delay(delay)
+        .easing(TWEEN.Easing.Quintic.Out)
+        .onUpdate((object) => {
+          ulNode.setAttribute(
+            'style',
+            'transform: translateY(' + object.y + '%);opacity:' + object.opacity
+          )
+        })
+        .start()
+    })
+
+    animate()
+  }
+
+  function createRandom() {
+    const arr = []
+    for (let i = 0; i < 4; i++) {
+      let str = ''
+      for (let j = 0; j < 5; j++) {
+        const num = Math.floor(Math.random() * 10) + ''
+        str += num
+      }
+      arr.push(str)
+    }
+    return arr
+  }
+
+  function animate(time) {
+    let id = requestAnimationFrame(animate)
+    var result = TWEEN.update(time)
+    if (!result) cancelAnimationFrame(id)
+  }
+
+  window.onload = () => {
+
+    // 数据统计数字滚动
+    let beforeNumArr = ['00000', '00000', '00000', '00000']
+    let afterNumArr = ['35345', '83460', '36765', '36465']
+
+    // 初始化
+    createMultiSrollNum(beforeNumArr)
+
+    // 添加动画
+    addMultiDigitAnimate(beforeNumArr, afterNumArr)
+
+    // 测试，点击第一列数字
+    document.getElementsByClassName('scroll-box')[0].onclick = function () {
+      const numArr = createRandom()
+      beforeNumArr = afterNumArr
+      afterNumArr = numArr
+      addMultiDigitAnimate(beforeNumArr, afterNumArr)
+    }
+  }
+
+</script>
+
+</html>
