@@ -3,6 +3,7 @@ const fabric = require('./config/fabric')
 const algorithm = require('./config/algorithm')
 const tools = require('./config/tools')
 const styleBlock = require('./config/styleBlock')
+const svgBlock = require('./config/svgBlock')
 const jsBlock = require('./config/jsBlock')
 const frame = require('./config/frame')
 const webgl = require('./config/webgl')
@@ -29,6 +30,7 @@ module.exports = {
       { text: '算法', link: '/algorithm/'},
       { text: 'jsBlock', link: '/jsBlock/' },
       { text: 'styleBlock', link: '/styleBlock/' },
+      { text: 'svgBlock', link: '/svgBlock/' },
       { text: '工具其他', link: '/tools/' },
       { text: 'Vue、React相关', link: '/frame/' },
       { text: 'webgl', link: '/webgl/' },
@@ -39,6 +41,7 @@ module.exports = {
       '/algorithm': algorithm,
       '/jsBlock/': jsBlock,
       '/styleBlock/': styleBlock,
+      '/svgBlock/': svgBlock,
       '/tools': tools,
       '/frame': frame,
       '/webgl': webgl,
