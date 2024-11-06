@@ -12,6 +12,10 @@ module.exports = [
     "path": "/frame/React构建create-react-app简单说明.md"
   },
   {
+    "title": "ubuntu使用",
+    "path": "/frame/ubuntu使用.md"
+  },
+  {
     "title": "vue.init",
     "path": "/frame/vue.init.md"
   },
