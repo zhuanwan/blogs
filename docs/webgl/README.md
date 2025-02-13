@@ -3,7 +3,7 @@
 ::: tip
 float 用 1.0，不要用整数，虽然也可以运行
 :::
-
+4
 
 ## thebookofshaders 示例
 原文链接：[thebookofshaders](https://thebookofshaders.com/?lan=ch)  
