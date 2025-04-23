@@ -1,31 +1,26 @@
+import { defaultTheme } from '@vuepress/theme-default'
+import { defineUserConfig } from 'vuepress'
+import { viteBundler } from '@vuepress/bundler-vite'
 
-const fabric = require('./config/fabric')
-const algorithm = require('./config/algorithm')
-const tools = require('./config/tools')
-const styleBlock = require('./config/styleBlock')
-const svgBlock = require('./config/svgBlock')
-const jsBlock = require('./config/jsBlock')
-const frame = require('./config/frame')
-const webgl = require('./config/webgl')
+import fabric from './config/fabric'
+import algorithm from './config/algorithm'
+import tools from './config/tools'
+import styleBlock from './config/styleBlock'
+import svgBlock from './config/svgBlock'
+import jsBlock from './config/jsBlock'
+import frame from './config/frame'
+import webgl from './config/webgl'
 
-module.exports = {
+export default defineUserConfig({
   base: '/blogs/',
+  lang: 'zh-CN',
   title: '前端',
   description: '我的前端笔记',
-  themeConfig: {
-    docsRepo: 'zhuanwan/blogs',
-    docsBranch: 'master', // git 源仓库 仓库分支
-    docsDir: 'docs', // 仓库下的文件夹
-    serviceWorker: {
-      updatePopup: {
-        // 刷新内容的弹窗
-        message: '发现新内容',
-        buttonText: '刷新'
-      }
-    },
-    lastUpdated: '最后更新时间', // 最后更新时间
-    sidebarDepth: 0,
-    nav: [
+
+  theme: defaultTheme({
+    logo: 'https://vuejs.press/images/hero.png',
+
+    navbar: [
       { text: 'fabric', link: '/fabric/'},
       { text: '算法', link: '/algorithm/'},
       { text: 'jsBlock', link: '/jsBlock/' },
@@ -37,17 +32,16 @@ module.exports = {
       { text: 'GitHub', link: 'https://github.com/zhuanwan/blogs' }
     ],
     sidebar: {
-      '/fabric': fabric,
-      '/algorithm': algorithm,
+      '/fabric/': fabric,
+      '/algorithm/': algorithm,
       '/jsBlock/': jsBlock,
       '/styleBlock/': styleBlock,
       '/svgBlock/': svgBlock,
-      '/tools': tools,
-      '/frame': frame,
-      '/webgl': webgl,
+      '/tools/': tools,
+      '/frame/': frame,
+      '/webgl/': webgl,
     }
-  },
-  markdown: {
-    lineNumbers: true // 代码行数
-  }
-}
+  }),
+
+  bundler: viteBundler(),
+})

@@ -31,3 +31,5 @@ node_modules/
 .scannerwork
 version.txt
 node_modules
+.cache/
+.temp/

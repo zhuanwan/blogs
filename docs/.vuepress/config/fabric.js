@@ -1,178 +1,178 @@
-module.exports = [
+export default [
   {
-    "title": "元素操作",
+    "text": "元素操作",
     "children": [
       {
-        "title": "元素分组",
-        "path": "/fabric/元素操作/元素分组.md"
+        "text": "元素分组",
+        "link": "/fabric/元素操作/元素分组.md"
       },
       {
-        "title": "元素定位",
-        "path": "/fabric/元素操作/元素定位.md"
+        "text": "元素定位",
+        "link": "/fabric/元素操作/元素定位.md"
       },
       {
-        "title": "元素层级",
-        "path": "/fabric/元素操作/元素层级.md"
+        "text": "元素层级",
+        "link": "/fabric/元素操作/元素层级.md"
       },
       {
-        "title": "元素禁止事件",
-        "path": "/fabric/元素操作/元素禁止事件.md"
+        "text": "元素禁止事件",
+        "link": "/fabric/元素操作/元素禁止事件.md"
       },
       {
-        "title": "元素选中样式",
-        "path": "/fabric/元素操作/元素选中样式.md"
+        "text": "元素选中样式",
+        "link": "/fabric/元素操作/元素选中样式.md"
       }
     ]
   },
   {
-    "title": "变换",
+    "text": "变换",
     "children": [
       {
-        "title": "变换",
-        "path": "/fabric/变换/变换.md"
+        "text": "变换",
+        "link": "/fabric/变换/变换.md"
       }
     ]
   },
   {
-    "title": "图片",
+    "text": "图片",
     "children": [
       {
-        "title": "图片",
-        "path": "/fabric/图片/图片.md"
+        "text": "图片",
+        "link": "/fabric/图片/图片.md"
       },
       {
-        "title": "背景图",
-        "path": "/fabric/图片/背景图.md"
+        "text": "背景图",
+        "link": "/fabric/图片/背景图.md"
       }
     ]
   },
   {
-    "title": "基础图形",
+    "text": "基础图形",
     "children": [
       {
-        "title": "三角形",
-        "path": "/fabric/基础图形/三角形.md"
+        "text": "三角形",
+        "link": "/fabric/基础图形/三角形.md"
       },
       {
-        "title": "圆形",
-        "path": "/fabric/基础图形/圆形.md"
+        "text": "圆形",
+        "link": "/fabric/基础图形/圆形.md"
       },
       {
-        "title": "多边形",
-        "path": "/fabric/基础图形/多边形.md"
+        "text": "多边形",
+        "link": "/fabric/基础图形/多边形.md"
       },
       {
-        "title": "折线",
-        "path": "/fabric/基础图形/折线.md"
+        "text": "折线",
+        "link": "/fabric/基础图形/折线.md"
       },
       {
-        "title": "椭圆",
-        "path": "/fabric/基础图形/椭圆.md"
+        "text": "椭圆",
+        "link": "/fabric/基础图形/椭圆.md"
       },
       {
-        "title": "直线",
-        "path": "/fabric/基础图形/直线.md"
+        "text": "直线",
+        "link": "/fabric/基础图形/直线.md"
       },
       {
-        "title": "矩形",
-        "path": "/fabric/基础图形/矩形.md"
+        "text": "矩形",
+        "link": "/fabric/基础图形/矩形.md"
       },
       {
-        "title": "路径",
-        "path": "/fabric/基础图形/路径.md"
+        "text": "路径",
+        "link": "/fabric/基础图形/路径.md"
       }
     ]
   },
   {
-    "title": "序列化和反序列化",
+    "text": "序列化和反序列化",
     "children": [
       {
-        "title": "反序列化",
-        "path": "/fabric/序列化和反序列化/反序列化.md"
+        "text": "反序列化",
+        "link": "/fabric/序列化和反序列化/反序列化.md"
       },
       {
-        "title": "输出JSON",
-        "path": "/fabric/序列化和反序列化/输出JSON.md"
+        "text": "输出JSON",
+        "link": "/fabric/序列化和反序列化/输出JSON.md"
       },
       {
-        "title": "输出png",
-        "path": "/fabric/序列化和反序列化/输出png.md"
+        "text": "输出png",
+        "link": "/fabric/序列化和反序列化/输出png.md"
       },
       {
-        "title": "输出svg",
-        "path": "/fabric/序列化和反序列化/输出svg.md"
+        "text": "输出svg",
+        "link": "/fabric/序列化和反序列化/输出svg.md"
       }
     ]
   },
   {
-    "title": "文本",
+    "text": "文本",
     "children": [
       {
-        "title": "可编辑文本",
-        "path": "/fabric/文本/可编辑文本.md"
+        "text": "可编辑文本",
+        "link": "/fabric/文本/可编辑文本.md"
       },
       {
-        "title": "多行文本",
-        "path": "/fabric/文本/多行文本.md"
+        "text": "多行文本",
+        "link": "/fabric/文本/多行文本.md"
       },
       {
-        "title": "文本",
-        "path": "/fabric/文本/文本.md"
+        "text": "文本",
+        "link": "/fabric/文本/文本.md"
       },
       {
-        "title": "文本省略",
-        "path": "/fabric/文本/文本省略.md"
+        "text": "文本省略",
+        "link": "/fabric/文本/文本省略.md"
       },
       {
-        "title": "文本边框",
-        "path": "/fabric/文本/文本边框.md"
+        "text": "文本边框",
+        "link": "/fabric/文本/文本边框.md"
       }
     ]
   },
   {
-    "title": "源码",
+    "text": "源码",
     "children": [
       {
-        "title": "fabric.Canvas",
-        "path": "/fabric/源码/fabric.Canvas.md"
+        "text": "fabric.Canvas",
+        "link": "/fabric/源码/fabric.Canvas.md"
       },
       {
-        "title": "fabric.Circle",
-        "path": "/fabric/源码/fabric.Circle.md"
+        "text": "fabric.Circle",
+        "link": "/fabric/源码/fabric.Circle.md"
       },
       {
-        "title": "fabric类的继承体系",
-        "path": "/fabric/源码/fabric类的继承体系.md"
+        "text": "fabric类的继承体系",
+        "link": "/fabric/源码/fabric类的继承体系.md"
       }
     ]
   },
   {
-    "title": "画布操作",
+    "text": "画布操作",
     "children": [
       {
-        "title": "画布拖动和缩放",
-        "path": "/fabric/画布操作/画布拖动和缩放.md"
+        "text": "画布拖动和缩放",
+        "link": "/fabric/画布操作/画布拖动和缩放.md"
       },
       {
-        "title": "画布框选样式",
-        "path": "/fabric/画布操作/画布框选样式.md"
+        "text": "画布框选样式",
+        "link": "/fabric/画布操作/画布框选样式.md"
       }
     ]
   },
   {
-    "title": "示例",
+    "text": "示例",
     "children": [
       {
-        "title": "fabric-echarts-demo",
-        "path": "/fabric/示例/fabric-echarts-demo.md"
+        "text": "fabric-echarts-demo",
+        "link": "/fabric/示例/fabric-echarts-demo.md"
       },
       {
-        "title": "拓扑图一",
-        "path": "/fabric/示例/拓扑图一.md"
+        "text": "拓扑图一",
+        "link": "/fabric/示例/拓扑图一.md"
       },
       {
-        "title": "拓扑图二",
-        "path": "/fabric/示例/拓扑图二.md"
+        "text": "拓扑图二",
+        "link": "/fabric/示例/拓扑图二.md"
       }
     ]
   }

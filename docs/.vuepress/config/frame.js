@@ -1,58 +1,58 @@
-module.exports = [
+export default [
   {
-    "title": "React",
-    "path": "/frame/React.md"
+    "text": "React",
+    "link": "/frame/React.md"
   },
   {
-    "title": "React使用中遇到的一些问题",
-    "path": "/frame/React使用中遇到的一些问题.md"
+    "text": "React使用中遇到的一些问题",
+    "link": "/frame/React使用中遇到的一些问题.md"
   },
   {
-    "title": "React构建create-react-app简单说明",
-    "path": "/frame/React构建create-react-app简单说明.md"
+    "text": "React构建create-react-app简单说明",
+    "link": "/frame/React构建create-react-app简单说明.md"
   },
   {
-    "title": "ubuntu使用",
-    "path": "/frame/ubuntu使用.md"
+    "text": "ubuntu使用",
+    "link": "/frame/ubuntu使用.md"
   },
   {
-    "title": "vue.init",
-    "path": "/frame/vue.init.md"
+    "text": "vue.init",
+    "link": "/frame/vue.init.md"
   },
   {
-    "title": "vue.use",
-    "path": "/frame/vue.use.md"
+    "text": "vue.use",
+    "link": "/frame/vue.use.md"
   },
   {
-    "title": "vuex源码解析",
-    "path": "/frame/vuex源码解析.md"
+    "text": "vuex源码解析",
+    "link": "/frame/vuex源码解析.md"
   },
   {
-    "title": "Vue使用中遇到的一些问题",
-    "path": "/frame/Vue使用中遇到的一些问题.md"
+    "text": "Vue使用中遇到的一些问题",
+    "link": "/frame/Vue使用中遇到的一些问题.md"
   },
   {
-    "title": "vue梳理",
-    "path": "/frame/vue梳理.md"
+    "text": "vue梳理",
+    "link": "/frame/vue梳理.md"
   },
   {
-    "title": "watcher&&dep",
-    "path": "/frame/watcher&&dep.md"
+    "text": "watcher&&dep",
+    "link": "/frame/watcher&&dep.md"
   },
   {
-    "title": "代码片段",
-    "path": "/frame/代码片段.md"
+    "text": "代码片段",
+    "link": "/frame/代码片段.md"
   },
   {
-    "title": "打包",
-    "path": "/frame/打包.md"
+    "text": "打包",
+    "link": "/frame/打包.md"
   },
   {
-    "title": "简单双向绑定",
-    "path": "/frame/简单双向绑定.md"
+    "text": "简单双向绑定",
+    "link": "/frame/简单双向绑定.md"
   },
   {
-    "title": "纯函数",
-    "path": "/frame/纯函数.md"
+    "text": "纯函数",
+    "link": "/frame/纯函数.md"
   }
 ]

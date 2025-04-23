@@ -1,6 +1,6 @@
-module.exports = [
+export default [
   {
-    "title": "弧度",
-    "path": "/svgBlock/弧度.md"
+    "text": "弧度",
+    "link": "/svgBlock/弧度.md"
   }
 ]

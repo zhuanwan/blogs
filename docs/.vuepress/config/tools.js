@@ -1,58 +1,58 @@
-module.exports = [
+export default [
   {
-    "title": "eslint",
-    "path": "/tools/eslint.md"
+    "text": "eslint",
+    "link": "/tools/eslint.md"
   },
   {
-    "title": "git",
-    "path": "/tools/git.md"
+    "text": "git",
+    "link": "/tools/git.md"
   },
   {
-    "title": "github访问",
-    "path": "/tools/github访问.md"
+    "text": "github访问",
+    "link": "/tools/github访问.md"
   },
   {
-    "title": "jenkins",
-    "path": "/tools/jenkins.md"
+    "text": "jenkins",
+    "link": "/tools/jenkins.md"
   },
   {
-    "title": "linux",
-    "path": "/tools/linux.md"
+    "text": "linux",
+    "link": "/tools/linux.md"
   },
   {
-    "title": "make",
-    "path": "/tools/make.md"
+    "text": "make",
+    "link": "/tools/make.md"
   },
   {
-    "title": "Markdown基本写法",
-    "path": "/tools/Markdown基本写法.md"
+    "text": "Markdown基本写法",
+    "link": "/tools/Markdown基本写法.md"
   },
   {
-    "title": "mysql安装",
-    "path": "/tools/mysql安装.md"
+    "text": "mysql安装",
+    "link": "/tools/mysql安装.md"
   },
   {
-    "title": "nginx",
-    "path": "/tools/nginx.md"
+    "text": "nginx",
+    "link": "/tools/nginx.md"
   },
   {
-    "title": "node安装",
-    "path": "/tools/node安装.md"
+    "text": "node安装",
+    "link": "/tools/node安装.md"
   },
   {
-    "title": "php安装",
-    "path": "/tools/php安装.md"
+    "text": "php安装",
+    "link": "/tools/php安装.md"
   },
   {
-    "title": "rabbitMQ",
-    "path": "/tools/rabbitMQ.md"
+    "text": "rabbitMQ",
+    "link": "/tools/rabbitMQ.md"
   },
   {
-    "title": "typescript",
-    "path": "/tools/typescript.md"
+    "text": "typescript",
+    "link": "/tools/typescript.md"
   },
   {
-    "title": "vuepress搭建",
-    "path": "/tools/vuepress搭建.md"
+    "text": "vuepress搭建",
+    "link": "/tools/vuepress搭建.md"
   }
 ]
