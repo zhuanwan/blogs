@@ -1,129 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TrackballControls</title>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "../utils/jsm/three.module.js"
+        }
+      }
+    </script>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TrackballControls</title>
-  <script type="importmap">
-		{
-			"imports": {
-				"three": "../utils/jsm/three.module.js"
-			}
-		}
-	</script>
+  <body style="overflow: hidden"></body>
+  <script type="module">
+    import * as THREE from "three";
+    import { TrackballControls } from "../utils/jsm/controls/TrackballControls.js";
 
-</head>
+    var renderer;
+    function initRender() {
+      renderer = new THREE.WebGLRenderer({ antialias: true });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      document.body.appendChild(renderer.domElement);
+    }
 
-<body style="overflow: hidden;">
+    var camera;
+    function initCamera() {
+      camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000);
+      camera.position.set(0, 0, 400);
+    }
 
-</body>
-<script type="module">
+    var scene;
+    function initScene() {
+      scene = new THREE.Scene();
+    }
 
-  import * as THREE from 'three';
-  import { TrackballControls } from '../utils/jsm/controls/TrackballControls.js';
+    var light;
+    function initLight() {
+      scene.add(new THREE.AmbientLight(0x404040));
 
-  var renderer;
-  function initRender() {
-    renderer = new THREE.WebGLRenderer({ antialias: true });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    document.body.appendChild(renderer.domElement);
-  }
+      light = new THREE.DirectionalLight(0xffffff);
+      light.position.set(1, 1, 1);
+      scene.add(light);
+    }
 
-  var camera;
-  function initCamera() {
-    camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000);
-    camera.position.set(0, 0, 400);
-  }
+    function initModel() {
+      var textureLoader = new THREE.TextureLoader();
 
-  var scene;
-  function initScene() {
-    scene = new THREE.Scene();
-  }
+      textureLoader.load("../ya.jpg", function (texture) {
+        var material = new THREE.MeshLambertMaterial({ map: texture });
 
-  var light;
-  function initLight() {
-    scene.add(new THREE.AmbientLight(0x404040));
+        var cube = new THREE.Mesh(new THREE.BoxGeometry(100, 200, 100), material);
+        scene.add(cube);
+        render();
+      });
+    }
 
-    light = new THREE.DirectionalLight(0xffffff);
-    light.position.set(1, 1, 1);
-    scene.add(light);
-  }
+    //用户交互插件 鼠标左键按住旋转，右键按住平移，滚轮缩放
+    var controls;
+    function initControls() {
+      controls = new TrackballControls(camera, renderer.domElement);
+      //旋转速度
+      controls.rotateSpeed = 5;
+      //变焦速度
+      controls.zoomSpeed = 3;
+      //平移速度
+      controls.panSpeed = 0.8;
+      //是否不变焦
+      controls.noZoom = false;
+      //是否不平移
+      controls.noPan = false;
+      //是否开启移动惯性
+      controls.staticMoving = false;
+      //动态阻尼系数 就是灵敏度
+      controls.dynamicDampingFactor = 0.3;
+      //未知，占时先保留
+      //controls.keys = [ 65, 83, 68 ];
+      // controls.addEventListener('change', render);
+    }
 
-  function initModel() {
-    var textureLoader = new THREE.TextureLoader();
+    function render() {
+      renderer.render(scene, camera);
+    }
 
-    textureLoader.load('../ya.JPG', function (texture) {
-      var material = new THREE.MeshLambertMaterial({ map: texture });
+    //窗口变动触发的函数
+    function onWindowResize() {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      controls.handleResize();
+      render();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    }
 
-      var cube = new THREE.Mesh(new THREE.BoxGeometry(100, 200, 100), material);
-      scene.add(cube);
-      render()
-    })
+    function animate() {
+      //更新控制器
+      controls.update();
+      render();
+      requestAnimationFrame(animate);
+    }
 
+    function draw() {
+      initRender();
+      initScene();
+      initCamera();
+      initLight();
+      initModel();
+      initControls();
 
+      animate();
+      window.onresize = onWindowResize;
+    }
 
-  }
-
-  //用户交互插件 鼠标左键按住旋转，右键按住平移，滚轮缩放
-  var controls;
-  function initControls() {
-    controls = new TrackballControls(camera, renderer.domElement);
-    //旋转速度
-    controls.rotateSpeed = 5;
-    //变焦速度
-    controls.zoomSpeed = 3;
-    //平移速度
-    controls.panSpeed = 0.8;
-    //是否不变焦
-    controls.noZoom = false;
-    //是否不平移
-    controls.noPan = false;
-    //是否开启移动惯性
-    controls.staticMoving = false;
-    //动态阻尼系数 就是灵敏度
-    controls.dynamicDampingFactor = 0.3;
-    //未知，占时先保留
-    //controls.keys = [ 65, 83, 68 ];
-    // controls.addEventListener('change', render);
-  }
-
-  function render() {
-    renderer.render(scene, camera);
-  }
-
-  //窗口变动触发的函数
-  function onWindowResize() {
-
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    controls.handleResize();
-    render();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-
-  }
-
-  function animate() {
-    //更新控制器
-    controls.update();
-    render();
-    requestAnimationFrame(animate);
-  }
-
-  function draw() {
-    initRender();
-    initScene();
-    initCamera();
-    initLight();
-    initModel();
-    initControls();
-
-    animate();
-    window.onresize = onWindowResize;
-  }
-
-  draw()
-</script>
-
+    draw();
+  </script>
 </html>
