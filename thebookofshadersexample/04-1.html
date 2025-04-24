@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GlslCanvas</title>
+</head>
+
+<body>
+  <div style="border: 1px solid blue;">
+    <canvas id="glslCanvas" width="500" height="500"></canvas>
+  </div>
+
+  <script type="text/javascript"
+    src="https://rawgit.com/patriciogonzalezvivo/glslCanvas/master/dist/GlslCanvas.js"></script>
+
+  <script>
+    var canvas = document.getElementById("glslCanvas");
+    var sandbox = new GlslCanvas(canvas);
+
+
+    const fragShaderSource = `
+      #ifdef GL_ES
+      precision mediump float;
+      #endif
+      uniform vec2 u_resolution;
+      void main()
+      {
+        // gl_FragCoord.xy/u_resolution 将像素坐标值映射到0到1的范围
+        vec2 st = gl_FragCoord.xy/u_resolution;
+	      gl_FragColor = vec4(st.x,st.y,0.0,1.0);
+      }    
+    `;
+
+
+    var sandbox = new GlslCanvas(canvas);
+    sandbox.load(fragShaderSource);
+
+  </script>
+
+</html>
