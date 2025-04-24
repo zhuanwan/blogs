@@ -11,11 +11,18 @@ import jsBlock from './config/jsBlock'
 import frame from './config/frame'
 import webgl from './config/webgl'
 
+import { getDirname, path } from 'vuepress/utils'
+
+const __dirname = getDirname(import.meta.url)
+
 export default defineUserConfig({
   base: '/blogs/',
   lang: 'zh-CN',
   title: '前端',
   description: '我的前端笔记',
+
+  // 注册客户端文件
+  clientConfigFile: path.resolve(__dirname, './client/client.js'),
 
   theme: defaultTheme({
     logo: 'https://vuejs.press/images/hero.png',
