@@ -25,8 +25,15 @@ export default defineUserConfig({
   clientConfigFile: path.resolve(__dirname, './client/client.js'),
 
   theme: defaultTheme({
-    logo: 'https://vuejs.press/images/hero.png',
-
+    head: [[
+      'link',
+      {
+        rel: 'icon',
+        href: "/favicon.ico"
+      },
+    ]],
+    logo: '/ya.jpg',
+    repo: 'https://github.com/zhuanwan/blogs',
     navbar: [
       { text: 'fabric', link: '/fabric/'},
       { text: '算法', link: '/algorithm/'},
@@ -36,7 +43,6 @@ export default defineUserConfig({
       { text: '工具其他', link: '/tools/' },
       { text: 'Vue、React相关', link: '/frame/' },
       { text: 'webgl', link: '/webgl/' },
-      { text: 'GitHub', link: 'https://github.com/zhuanwan/blogs' }
     ],
     sidebar: {
       '/fabric/': fabric,
@@ -47,7 +53,8 @@ export default defineUserConfig({
       '/tools/': tools,
       '/frame/': frame,
       '/webgl/': webgl,
-    }
+    },
+    sidebarDepth: 1,
   }),
 
   bundler: viteBundler(),
