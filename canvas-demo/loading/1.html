@@ -1,0 +1,61 @@
+<style>
+  .canvas1 {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin: -60px 0 0 -60px;
+    animation: spin 1s infinite cubic-bezier(0.7, 0.4, 0.5, 0.7);
+  }
+
+  @keyframes spin {
+    to {
+      -webkit-transform: rotate(360deg);
+    }
+  }
+</style>
+
+<div style="width: 100%;height: 100%;background-color: black;position: relative;">
+  <canvas class="canvas1" id="canvas1"></canvas>
+</div>
+
+<script>
+  var canvas = document.getElementById('canvas1'),
+    d = canvas.width = canvas.height = 120,
+    ctx = canvas.getContext('2d'),
+    opacity;
+
+
+  ctx.translate(d / 2, d / 2);
+  ctx.rotate(Math.PI * 360 / 360);
+  ctx.lineWidth = Math.ceil(d / 50);
+  ctx.lineCap = 'square';
+
+  for (var i = 0; i <= 360; i++) {
+    ctx.save();
+
+    ctx.rotate((Math.PI * i / 180));
+
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+    opacity = (360 - (i * 0.95)) / 360;
+    ctx.strokeStyle = 'rgba(255,255,255,' + opacity.toFixed(2) + ')';
+    ctx.lineTo(0, d);
+    ctx.stroke();
+    ctx.closePath();
+
+    ctx.restore();
+  }
+
+  ctx.globalCompositeOperation = 'source-out';
+  ctx.beginPath();
+  ctx.arc(0, 0, d / 2, 2 * Math.PI, false);
+  ctx.fillStyle = 'white';
+  ctx.fill();
+
+  ctx.globalCompositeOperation = 'destination-out';
+  ctx.beginPath();
+  ctx.arc(0, 0, (d / 2) * .9, 2 * Math.PI, false);
+  ctx.fill();
+</script>
+
+</html>

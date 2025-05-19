@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../../utils/jquery-3.6.0.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      padding: 0
+    }
+
+    .box {
+      display: flex;
+    }
+
+    .box .item {
+      position: relative;
+      overflow: hidden;
+      flex: 1;
+      border: 1px solid #ccc;
+      margin: 20px;
+      min-width: 200px;
+      min-height: 200px;
+      flex-wrap: wrap;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  </style>
+</head>
+
+<body>
+
+</body>
+
+
+<script>
+  const htmlArr = [
+    './1.html',
+    './2.html',
+    './3.html',
+  ]
+
+  var parentDiv = $('<div></div>');
+  parentDiv.attr('id', 'box');
+  parentDiv.addClass('box');
+
+
+  htmlArr.forEach(link => {
+    const childDiv = $('<div class="item"></div>')
+    childDiv.load(link)
+    childDiv.appendTo(parentDiv);
+  })
+
+  parentDiv.appendTo('body');
+
+
+</script>
+
+</html>

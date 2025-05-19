@@ -1,0 +1,45 @@
+import{_ as s,c as a,e,o as i}from"./app-Cqb5tvJn.js";const c={};function l(p,n){return i(),a("div",null,n[0]||(n[0]=[e(`<h1 id="fabric-circle" tabindex="-1"><a class="header-anchor" href="#fabric-circle"><span>fabric.Circle</span></a></h1><p>fabric 是个对象， 它上面挂载了很多方法</p><p>-- fabric.StaticCanvas // 创建</p><p>-- fabric.util.xx // 工具类</p><p>-- fabric.CommonMethods.xx // 公共方法</p><p>-- fabric.Circle</p><h2 id="fabric-circle-1" tabindex="-1"><a class="header-anchor" href="#fabric-circle-1"><span>fabric.Circle</span></a></h2><h3 id="定义" tabindex="-1"><a class="header-anchor" href="#定义"><span>定义</span></a></h3><p><code>fabric.Circle</code>, 调用 <code>fabric.util.createClass</code>，继承 fabric.Object，返回 function</p><div class="language-javascript line-numbers-mode" data-highlighter="prismjs" data-ext="js"><pre><code><span class="line">fabric<span class="token punctuation">.</span>Circle <span class="token operator">=</span> fabric<span class="token punctuation">.</span>util<span class="token punctuation">.</span><span class="token function">createClass</span><span class="token punctuation">(</span>fabric<span class="token punctuation">.</span>Object<span class="token punctuation">,</span> <span class="token punctuation">{</span></span>
+<span class="line">    <span class="token operator">...</span></span>
+<span class="line"><span class="token punctuation">}</span><span class="token punctuation">)</span></span>
+<span class="line"></span></code></pre><div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0;"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="生成实例" tabindex="-1"><a class="header-anchor" href="#生成实例"><span>生成实例</span></a></h3><p><code>new fabric.Circle(options)</code> 生成实例，执行 <code>initialize</code></p><div class="language-javascript line-numbers-mode" data-highlighter="prismjs" data-ext="js"><pre><code><span class="line"><span class="token function-variable function">initialize</span><span class="token operator">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">options</span><span class="token punctuation">)</span> <span class="token punctuation">{</span></span>
+<span class="line">    <span class="token keyword">if</span> <span class="token punctuation">(</span>options<span class="token punctuation">)</span> <span class="token punctuation">{</span></span>
+<span class="line">        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">setOptions</span><span class="token punctuation">(</span>options<span class="token punctuation">)</span><span class="token punctuation">;</span></span>
+<span class="line">    <span class="token punctuation">}</span></span>
+<span class="line"><span class="token punctuation">}</span><span class="token punctuation">,</span></span>
+<span class="line"></span>
+<span class="line"> <span class="token comment">// this.setOptions 会调用</span></span>
+<span class="line"> <span class="token function-variable function">_set</span><span class="token operator">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">key<span class="token punctuation">,</span> value</span><span class="token punctuation">)</span> <span class="token punctuation">{</span></span>
+<span class="line">    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">callSuper</span><span class="token punctuation">(</span><span class="token string">&#39;_set&#39;</span><span class="token punctuation">,</span> key<span class="token punctuation">,</span> value<span class="token punctuation">)</span><span class="token punctuation">;</span></span>
+<span class="line"></span>
+<span class="line">    <span class="token keyword">if</span> <span class="token punctuation">(</span>key <span class="token operator">===</span> <span class="token string">&#39;radius&#39;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span></span>
+<span class="line">      <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">setRadius</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span><span class="token punctuation">;</span></span>
+<span class="line">    <span class="token punctuation">}</span></span>
+<span class="line"></span>
+<span class="line">    <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">;</span></span>
+<span class="line">  <span class="token punctuation">}</span><span class="token punctuation">,</span></span>
+<span class="line"></span></code></pre><div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0;"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="canvas-add-实例" tabindex="-1"><a class="header-anchor" href="#canvas-add-实例"><span>canvas.add(实例)</span></a></h3><div class="language-canvas.add(circle), line-numbers-mode" data-highlighter="prismjs" data-ext="canvas.add(circle),"><pre><code><span class="line"></span>
+<span class="line">\`\`\`js title=&quot;伪代码&quot;</span>
+<span class="line">this._onObjectAdded(Circle实例); // Circle实例添加进objects</span>
+<span class="line">this._renderObjects(ctx, objects); // 渲染 objects</span>
+<span class="line">objects[i].render(ctx);</span>
+<span class="line">this.drawObject(this._cacheContext, options.forClipping); // _cacheContext, 缓存ctx</span>
+<span class="line">this._render(ctx); // _cacheContext 上画Circle实例</span>
+<span class="line">// 开始画Circle实例</span>
+<span class="line"> _render: function(ctx) {</span>
+<span class="line">    ctx.beginPath();</span>
+<span class="line">    ctx.arc(</span>
+<span class="line">    0,</span>
+<span class="line">    0,</span>
+<span class="line">    this.radius,</span>
+<span class="line">    degreesToRadians(this.startAngle),</span>
+<span class="line">    degreesToRadians(this.endAngle),</span>
+<span class="line">    false</span>
+<span class="line">    );</span>
+<span class="line">    this._renderPaintInOrder(ctx);</span>
+<span class="line">},</span>
+<span class="line">// 画完了_cacheContext 添加到canvas</span>
+<span class="line">drawCacheOnCanvas: function(ctx) {</span>
+<span class="line">    ctx.scale(1 / this.zoomX, 1 / this.zoomY);</span>
+<span class="line">    ctx.drawImage(this._cacheCanvas, -this.cacheTranslationX, -this.cacheTranslationY);</span>
+<span class="line">},</span>
+<span class="line"></span></code></pre><div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0;"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div>`,15)]))}const o=s(c,[["render",l]]),r=JSON.parse('{"path":"/fabric/%E6%BA%90%E7%A0%81/fabric.Circle.html","title":"fabric.Circle","lang":"zh-CN","frontmatter":{},"headers":[{"level":2,"title":"fabric.Circle","slug":"fabric-circle-1","link":"#fabric-circle-1","children":[{"level":3,"title":"定义","slug":"定义","link":"#定义","children":[]},{"level":3,"title":"生成实例","slug":"生成实例","link":"#生成实例","children":[]},{"level":3,"title":"canvas.add(实例)","slug":"canvas-add-实例","link":"#canvas-add-实例","children":[]}]}],"git":{"updatedTime":1702021246000,"contributors":[{"name":"wu.hui","username":"","email":"wu.hui@qkupower.com","commits":3}],"changelog":[{"hash":"508b64c514d611c90e93a13089624b61b92b76ac","time":1702021246000,"email":"wu.hui@qkupower.com","author":"wu.hui","message":"ff"},{"hash":"d5b01aef79f060595dd6ed4a4f7a51cc3f7c39c9","time":1701683950000,"email":"wu.hui@qkupower.com","author":"wu.hui","message":"f"},{"hash":"b2a5b0294ce11a83eb9bb4b1f5cbbb985f221a84","time":1701423707000,"email":"wu.hui@qkupower.com","author":"wu.hui","message":"feat: up"}]},"filePathRelative":"fabric/源码/fabric.Circle.md"}');export{o as comp,r as data};

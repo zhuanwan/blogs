@@ -1,0 +1,145 @@
+.home-technology {
+  width: 100%;
+  background: #f5faff;
+  padding-top: 80px;
+  padding-bottom: 50px;
+  min-height: 600px;
+}
+.home-technology .title-index {
+  font-family: PingFangSC-Medium;
+  font-size: 28px;
+  color: #000000;
+  letter-spacing: 0;
+  text-align: center;
+  font-weight: 500;
+}
+.home-technology .inner-box-wrapper {
+  position: relative;
+}
+.home-technology .inner-box-wrapper .tab-box {
+  margin: 60px 0 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.home-technology .inner-box-wrapper .tab-box > li {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 14px;
+  width: 175px;
+  height: 50px;
+  border: 2px solid #0089ff;
+  border-radius: 2px;
+  font-size: 20px;
+  line-height: 50px;
+  font-weight: 500;
+  color: #0089ff;
+  cursor: pointer;
+}
+.home-technology .inner-box-wrapper .tab-box > li.active {
+  background-color: #006bff;
+  border: 1.5px solid #0089ff;
+  color: #fff;
+}
+.home-technology .inner-box-wrapper .swiper-box {
+  position: relative;
+  height: 600px;
+}
+.home-technology .inner-box-wrapper .swiper-box .swiper {
+  height: 573px;
+  width: 994px;
+  margin: 0 auto;
+  overflow: hidden;
+  display: none;
+}
+.home-technology .inner-box-wrapper .swiper-box .swiper.group-1 {
+  display: block;
+}
+.home-technology .inner-box-wrapper .swiper-box .swiper-button-prev,
+.home-technology .inner-box-wrapper .swiper-box .swiper-button-next {
+  width: 60px;
+  height: 60px;
+  background: #ffffff;
+  box-shadow: 0px 4px 8px 0px rgba(4, 67, 208, 0.08);
+  border-radius: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.home-technology .inner-box-wrapper .swiper-box .swiper-button-prev i,
+.home-technology .inner-box-wrapper .swiper-box .swiper-button-next i {
+  display: block;
+  width: 32px;
+  height: 32px;
+  border-width: 1px;
+  border-style: dashed;
+  border-color: rgba(0, 0, 0, 0.5);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+.home-technology .inner-box-wrapper .swiper-box .swiper-button-prev {
+  left: 50%;
+  margin-left: -620px;
+}
+.home-technology .inner-box-wrapper .swiper-box .swiper-button-prev i {
+  background-image: url(/pc/image/20220924/c-arrow-l.png);
+}
+.home-technology .inner-box-wrapper .swiper-box .swiper-button-prev:hover i {
+  border-color: #000000;
+  background-image: url(/pc/image/20220924/c-arrow-l-active.png);
+}
+.home-technology .inner-box-wrapper .swiper-box .swiper-button-next {
+  right: 50%;
+  margin-right: -620px;
+}
+.home-technology .inner-box-wrapper .swiper-box .swiper-button-next i {
+  background-image: url(/pc/image/20220924/c-arrow-r.png);
+}
+.home-technology .inner-box-wrapper .swiper-box .swiper-button-next:hover i {
+  border-color: #000000;
+  background-image: url(/pc/image/20220924/c-arrow-r-active.png);
+}
+.home-technology .inner-box-wrapper .swiper-box .swiper-slide > img {
+  width: 100%;
+  height: 500px;
+}
+.home-technology .inner-box-wrapper .swiper-box .swiper-slide .title {
+  margin-bottom: 40px;
+  font-size: 24px;
+  color: #0089ff;
+  text-align: center;
+}
+.home-technology .inner-box-wrapper .swiper-pagination-bullet {
+  width: 32px;
+  height: 4px;
+  border-radius: 2px;
+  position: relative;
+}
+.home-technology .inner-box-wrapper .swiper-pagination-bullet::after {
+  border-radius: 2px;
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: #0089ff;
+  height: 100%;
+  width: 0;
+}
+.home-technology .inner-box-wrapper .swiper-pagination-bullet.swiper-pagination-bullet-active {
+  background: rgba(0, 0, 0, 0.2);
+}
+.home-technology .inner-box-wrapper .swiper-pagination-bullet.swiper-pagination-bullet-active::after {
+  animation: cover 3s forwards;
+  width: 100%;
+}
+@keyframes cover {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
