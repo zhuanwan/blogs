@@ -8,12 +8,14 @@ npx create-next-app@latest my-next-app
 
 ## 添加多语言、pc/mobile
 
-[多语言项目参考链接](https://github.com/i18next/next-app-dir-i18next-example-ts)
+* [多语言项目参考链接](https://github.com/i18next/next-app-dir-i18next-example-ts)
+* [项目链接](https://github.com/zhuanwan/nexjs-demo)
 
 ::: note
 参考链接中url是对应的 **/en/about**、**/zh/about** 这种,我们统一希望改成 **/about**，并且区分移动端和pc端，所以修改目录和中间件
 :::
 
+::: details
 ::: tabs
 
 @tab 目录
@@ -251,7 +253,8 @@ export function middleware(req: NextRequest) {
 | SSR  | 实时更新          | 每次请求都由服务端动态生成 HTML   | 总是更新         | fetch(..., { cache: 'no-store' })                | 较慢
 | ISR  | 定期更新          | 构建时生成 HTML，后续定期自动刷新 |半实时（渐进更新） | fetch(..., { next: { revalidate: 60 } })         | 优
 
-```js 
+
+``` js 
 // app/pc/home/page.tsx
 export const dynamic = 'force-static';
 
@@ -272,7 +275,22 @@ export default async function Page() {
     </main>
   );
 }
-
 ```
+
+::: danger
+但是这样用不了多语言切换，放弃，在**Link**中加prefetch，好像也没多大作用，目前暂时没有找到好的解决方案
+:::
+
+
+```js
+import Link from "next/link";
+<Link
+  href={item.url}
+  prefetch={true}
+>
+  name
+</Link>
+```
+
 
 

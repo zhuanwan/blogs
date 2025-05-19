@@ -4,6 +4,10 @@ export default [
     "link": "/frame/1_1_nextjs项目开发.md"
   },
   {
+    "text": "1_2_nextjs项目部署",
+    "link": "/frame/1_2_nextjs项目部署.md"
+  },
+  {
     "text": "React",
     "link": "/frame/React.md"
   },
