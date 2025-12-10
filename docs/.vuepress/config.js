@@ -6,9 +6,9 @@ import fabric from './config/fabric'
 import algorithm from './config/algorithm'
 import tools from './config/tools'
 import styleBlock from './config/styleBlock'
-import svgBlock from './config/svgBlock'
 import jsBlock from './config/jsBlock'
 import frame from './config/frame'
+import canvas from './config/canvas'
 import webgl from './config/webgl'
 
 import { getDirname, path } from 'vuepress/utils'
@@ -39,9 +39,9 @@ export default defineUserConfig({
       { text: '算法', link: '/algorithm/'},
       { text: 'jsBlock', link: '/jsBlock/' },
       { text: 'styleBlock', link: '/styleBlock/' },
-      { text: 'svgBlock', link: '/svgBlock/' },
       { text: '工具其他', link: '/tools/' },
       { text: 'Vue、React相关', link: '/frame/' },
+      { text: 'canvas', link: '/canvas/' },
       { text: 'webgl', link: '/webgl/' },
     ],
     sidebar: {
@@ -49,9 +49,9 @@ export default defineUserConfig({
       '/algorithm/': algorithm,
       '/jsBlock/': jsBlock,
       '/styleBlock/': styleBlock,
-      '/svgBlock/': svgBlock,
       '/tools/': tools,
       '/frame/': frame,
+      '/canvas/': canvas,
       '/webgl/': webgl,
     },
     sidebarDepth: 1,

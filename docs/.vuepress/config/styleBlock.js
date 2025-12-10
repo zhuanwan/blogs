@@ -8,6 +8,15 @@ export default [
     "link": "/styleBlock/flex.md"
   },
   {
+    "text": "svg",
+    "children": [
+      {
+        "text": "弧度",
+        "link": "/styleBlock/svg/弧度.md"
+      }
+    ]
+  },
+  {
     "text": "Vue组件样式修改",
     "link": "/styleBlock/Vue组件样式修改.md"
   },

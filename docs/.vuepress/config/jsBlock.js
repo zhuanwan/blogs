@@ -1,5 +1,9 @@
 export default [
   {
+    "text": "1_1_带并发数限制的请求调度器",
+    "link": "/jsBlock/1_1_带并发数限制的请求调度器.md"
+  },
+  {
     "text": "parseInt",
     "link": "/jsBlock/parseInt.md"
   },
