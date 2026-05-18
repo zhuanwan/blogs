@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GlslCanvas</title>
+</head>
+
+<body>
+  <div style="border: 1px solid blue;">
+    <canvas id="glslCanvas" width="500" height="500"></canvas>
+  </div>
+
+  <script type="text/javascript"
+    src="https://rawgit.com/patriciogonzalezvivo/glslCanvas/master/dist/GlslCanvas.js"></script>
+
+  <script>
+    var canvas = document.getElementById("glslCanvas");
+    var sandbox = new GlslCanvas(canvas);
+
+
+    const fragShaderSource = `
+      #ifdef GL_ES
+      precision mediump float;
+      #endif
+
+      uniform vec2 u_resolution;
+      uniform vec2 u_mouse;
+      uniform float u_time;
+
+      // 在Y上画一条线, 使用0.0-1.0之间的值, 小于0的时候是1, 大于0.02是0, 其他在中间
+      float plot(vec2 st) {    
+          return smoothstep(0.02, 0.0, abs(st.y - st.x));
+      }
+
+      void main()
+      {
+        vec2 st = gl_FragCoord.xy/u_resolution;
+
+        float y = st.x;
+
+        vec3 color = vec3(y);
+
+        // Plot a line
+        float pct = plot(st);
+        color = (1.0-pct)*color+pct*vec3(0.0,1.0,0.0);
+
+        gl_FragColor = vec4(color,1.0);
+      }    
+    `;
+
+
+    var sandbox = new GlslCanvas(canvas);
+    sandbox.load(fragShaderSource);
+
+  </script>
+
+</html>

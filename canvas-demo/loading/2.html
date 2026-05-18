@@ -1,0 +1,87 @@
+<style type="text/css">
+  #d1,
+  #ci1,
+  #ci2,
+  #ci3 {
+    position: absolute;
+    top: 0px;
+    left: 0px
+  }
+
+  .cc2 {
+    animation-duration: 1s;
+    animation-name: loading2w;
+    animation-iteration-count: infinite;
+  }
+
+  .cc3 {
+    animation-duration: 1s;
+    animation-name: loading3w;
+    animation-iteration-count: infinite;
+  }
+
+  @keyframes loading2w {
+    0% {
+      visibility: hidden;
+    }
+
+    33% {
+      visibility: hidden;
+    }
+
+    33.33% {
+      visibility: visible;
+    }
+
+    100% {
+      visibility: hidden;
+    }
+  }
+
+  @keyframes loading3w {
+    0% {
+      visibility: hidden;
+    }
+
+    66.33% {
+      visibility: hidden;
+    }
+
+    66.67% {
+      visibility: visible;
+    }
+
+    100% {
+      visibility: hidden;
+    }
+  }
+</style>
+<script>
+
+  var c10 = document.getElementById("ci1");
+  var ctx10 = c10.getContext("2d");
+  ctx10.fillStyle = "#f00";
+  ctx10.font = "15pt Calibri";
+  ctx10.fillText("Loading .", 5, 15);
+
+  var c12 = document.getElementById("ci2");
+  var ctx12 = c12.getContext("2d");
+  ctx12.fillStyle = "#f00";
+  ctx12.font = "15pt Calibri";
+  ctx12.fillText(".", 80, 15);
+
+  var c13 = document.getElementById("ci3");
+  var ctx13 = c13.getContext("2d");
+  ctx13.fillStyle = "#f00";
+  ctx13.font = "15pt Calibri";
+  ctx13.fillText(".", 86, 15);
+
+</script>
+</head>
+
+
+<div id="d1">
+  <canvas id="ci1" class="cc1" width="100" height="100"></canvas>
+  <canvas id="ci2" class="cc2" width="100" height="100"></canvas>
+  <canvas id="ci3" class="cc3" width="100" height="100"></canvas>
+</div>

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    ul,
+    li {
+      list-style: none;
+    }
+
+    .scroll-box {
+      display: flex;
+    }
+
+    .scroll-num {
+      margin-right: 30px;
+      font-size: 30px;
+      color: #f00;
+      border: 1px solid red;
+      overflow: hidden;
+      width: var(--width, 36px);
+      height: var(--height, 48px);
+
+      font-size: 28px;
+      line-height: var(--height, 48px);
+      text-align: center;
+    }
+
+    .border-animate {
+      animation: enhance-bounce-in-down 1s calc(var(--delay) * 1s) forwards;
+    }
+
+    .animate {
+      animation: move 1.3s linear infinite,
+        bounce-in-down 1s calc(var(--delay) * 1s) forwards;
+    }
+
+    @keyframes move {
+      from {
+        transform: translateY(-90%);
+        filter: url(#blur);
+      }
+
+      to {
+        transform: translateY(1%);
+        filter: url(#blur);
+      }
+    }
+
+    @keyframes bounce-in-down {
+      from {
+        transform: translateY(calc(var(--i) * -9.09% - 7%));
+        filter: none;
+      }
+
+      25% {
+        transform: translateY(calc(var(--i) * -9.09% + 3%));
+      }
+
+      50% {
+        transform: translateY(calc(var(--i) * -9.09% - 1%));
+      }
+
+      70% {
+        transform: translateY(calc(var(--i) * -9.09% + 0.6%));
+      }
+
+      85% {
+        transform: translateY(calc(var(--i) * -9.09% - 0.3%));
+      }
+
+      to {
+        transform: translateY(calc(var(--i) * -9.09%));
+      }
+    }
+
+    @keyframes enhance-bounce-in-down {
+      25% {
+        transform: translateY(8%);
+      }
+
+      50% {
+        transform: translateY(-4%);
+      }
+
+      70% {
+        transform: translateY(2%);
+      }
+
+      85% {
+        transform: translateY(-1%);
+      }
+
+      to {
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div style="margin-top: 200px;margin-left: 100px;">
+    <div class="scroll-box">
+
+    </div>
+    <svg width="0" height="0">
+      <filter id="blur">
+        <feGaussianBlur in="SourceGraphic" :stdDeviation="0 36" />
+      </filter>
+    </svg>
+  </div>
+</body>
+
+<script>
+
+  const width = 36
+  const height = 48
+  const delay = 2
+  const numString = '353465'
+
+  const ua = navigator.userAgent.toLowerCase()
+  const testUA = regexp => regexp.test(ua)
+  const isSafari = testUA(/safari/g) && !testUA(/chrome/g)
+  const isWeChat = testUA(/micromessenger/g)
+
+
+  function createMultiSrollNum(box, numString, width, height, delay) {
+    box.style.setProperty('--width', width + 'px');
+    box.style.setProperty('--height', height + 'px');
+    const docFrag = document.createDocumentFragment();
+    numString.split('').forEach((num, i) => {
+      docFrag.appendChild(createSrollNum(num, delay + i * 0.5))
+    })
+    box.appendChild(docFrag)
+  }
+
+  function createSrollNum(num, delay) {
+
+    const scrollNumNode = document.createElement('div')
+    scrollNumNode.className = 'scroll-num border-animate'
+    scrollNumNode.innerHTML = `<ul class="animate">
+    <li>0</li>
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+    <li>5</li>
+    <li>6</li>
+    <li>7</li>
+    <li>8</li>
+    <li>9</li>
+    <li>0</li>
+    </ul>`
+
+    scrollNumNode.style.setProperty('--i', num);
+    scrollNumNode.style.setProperty('--delay', delay);
+
+
+    const ulNode = scrollNumNode.childNodes[0]
+
+    if (isSafari || isWeChat) {
+      let timer = setTimeout(() => {
+        ulNode.setAttribute('style', 'animation: none;transform: translateY(' + (num * -9.09) + '%)')
+        timer = null
+      }, delay * 1000)
+    }
+
+    return scrollNumNode
+  }
+
+
+
+  window.onload = function () {
+    const scrollBox = document.getElementsByClassName('scroll-box')[0]
+    createMultiSrollNum(scrollBox, numString, width, height, delay)
+  }
+
+
+
+</script>
+
+</html>

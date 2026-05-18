@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<style>
+  .heart {
+    display: block;
+    width: 100px;
+    height: 100px;
+    background: url(../images/web_heart_animation_edge.png) 0 0 no-repeat;
+    background-size: 2900%;
+    background-position: left;
+    transition: all steps(28);
+  }
+
+  .clicked {
+    background-position: right;
+    transition-duration: 0.8s;
+    /* transition-duration 写在.heart中会使得取消的时候有反向的动画 */
+  }
+</style>
+
+<style>
+  .heart2 {
+    display: block;
+    width: 100px;
+    height: 100px;
+    background: url(../images/web_heart_animation_edge.png) 0 0 no-repeat;
+    background-size: 2900%;
+    animation: heart-burst steps(28) 0.8s infinite both;
+  }
+
+  .stop {
+    animation-play-state: paused;
+  }
+
+  @keyframes heart-burst {
+    0% {
+      background-position: 0%;
+    }
+
+    100% {
+      background-position: 100%;
+    }
+  }
+</style>
+
+<body>
+  <!-- 转https://styled.link/2017/12/31/%E4%BD%BF%E7%94%A8png%E5%9B%BE%E7%89%87%E5%88%B6%E4%BD%9C%E9%80%90%E5%B8%A7%E5%8A%A8%E7%94%BB/ -->
+  <i id="heart" class="heart"></i>
+
+  <div style="margin-top: 100px;"></div>
+  <i id="heart2" class="heart2 stop"></i>
+  <p><input type="button" id="btn-stop" value="播放"></p>
+</body>
+<script>
+  const heart = document.getElementById("heart");
+
+  heart.addEventListener('click', function () {
+    this.classList.toggle('clicked');
+  })
+</script>
+
+<script>
+  const image = document.getElementById("heart2");
+  const button = document.getElementById("btn-stop");
+
+  button.onclick = function () {
+    if (this.value == '暂停') {
+      image.classList.add('stop');
+      this.value = '播放';
+    } else {
+      image.classList.remove('stop');
+      this.value = '暂停';
+    }
+  };
+</script>
+
+</html>

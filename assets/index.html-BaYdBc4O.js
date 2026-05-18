@@ -1,0 +1,1 @@
+import{_ as e,c as o,b as a,o as n}from"./app-CI-m-WBK.js";const r={};function s(c,t){return n(),o("div",null,t[0]||(t[0]=[a("p",null,"各种工具安装，记录下",-1)]))}const p=e(r,[["render",s]]),i=JSON.parse('{"path":"/tools%20copy/","title":"","lang":"zh-CN","frontmatter":{},"headers":[],"git":{},"filePathRelative":"tools copy/README.md"}');export{p as comp,i as data};
